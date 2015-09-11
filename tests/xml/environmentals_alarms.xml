@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response status="success">
+    <result>
+        <thermal>
+            <Slot1>
+                <entry>
+                    <max>60.0</max>
+                    <alarm>True</alarm>
+                    <min>5.0</min>
+                    <description>Temperature @ Test1</description>
+                    <DegreesC>25.0</DegreesC>
+                </entry>
+                <entry>
+                    <max>60.0</max>
+                    <alarm>True</alarm>
+                    <min>5.0</min>
+                    <description>Temperature @ Test2</description>
+                    <DegreesC>25.0</DegreesC>
+                </entry>
+            </Slot1>
+        </thermal>
+    </result>
+</response>

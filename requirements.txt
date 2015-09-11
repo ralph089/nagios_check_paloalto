@@ -1,0 +1,10 @@
+pytest==2.7.2
+tox==2.1.1
+python-coveralls==2.5.0
+pytest-cov==2.1.0
+nagiosplugin==1.2.2
+beautifulsoup4==4.4.0
+lxml==3.4.4
+requests==2.7.0
+responses==0.4.0
+wheel==0.23.0

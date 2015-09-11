@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response status="success">
+    <result>
+        <certificate>
+            <entry name="test-certificate1">
+                <subject-hash>1234</subject-hash>
+                <issuer-hash>1234</issuer-hash>
+                <not-valid-before>Oct 01 07:00:00 2011 GMT</not-valid-before>
+                <issuer>
+                    C=AT/ST=Steiermark/L=Graz/O=TrustMe Ltd/OU=Certificate
+                    Authority/CN=CA/Email=ca@trustme.dom
+                </issuer>
+                <not-valid-after>Oct 02 07:00:00 2011 GMT</not-valid-after>
+                <common-name>test-certificate1</common-name>
+                <expiry-epoch>1443861936</expiry-epoch>
+                <ca>yes</ca>
+                <subject>
+                    /C=AT/ST=Steiermark/L=Graz/O=TrustMe Ltd/OU=Certificate
+                    Authority/CN=CA/Email=ca@trustme.dom
+                </subject>
+                <public-key>
+                    -----BEGIN CERTIFICATE-----
+                    ...
+                    -----END CERTIFICATE-----
+                </public-key>
+                <private-key>
+                    ...
+                </private-key>
+            </entry>
+            <entry name="test-certificate2">
+                <subject-hash>1234</subject-hash>
+                <issuer-hash>1234</issuer-hash>
+                <not-valid-before>Oct 01 07:00:00 2011 GMT</not-valid-before>
+                <issuer>
+                    C=AT/ST=Steiermark/L=Graz/O=TrustMe Ltd/OU=Certificate
+                    Authority/CN=CA/Email=ca@trustme.dom
+                </issuer>
+                <not-valid-after>Oct 03 07:00:00 2011 GMT</not-valid-after>
+                <common-name>test-certificate2</common-name>
+                <expiry-epoch>1443861936</expiry-epoch>
+                <ca>yes</ca>
+                <subject>
+                    /C=AT/ST=Steiermark/L=Graz/O=TrustMe Ltd/OU=Certificate
+                    Authority/CN=CA/Email=ca@trustme.dom
+                </subject>
+                <public-key>
+                    -----BEGIN CERTIFICATE-----
+                    ...
+                    -----END CERTIFICATE-----
+                </public-key>
+                <private-key>
+                    ...
+                </private-key>
+            </entry>
+        </certificate>
+    </result>
+</response>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response status="success">
+    <result>Filesystem Size Used Avail Use% Mounted on
+        /dev/sda2 3.8G 2.1G 1.6G 57% /
+        /dev/sda5 7.6G 3.1G 4.2G 43% /opt/pancfg
+        /dev/sda6 3.8G 1.1G 2.6G 30% /opt/panrepo
+        tmpfs 1.9G 67M 1.8G 4% /dev/shm
+        /dev/sda8 90G 40G 46G 47% /opt/panlogs
+    </result>
+</response>
