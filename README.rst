@@ -60,7 +60,3 @@ Command-line usage::
     Debug:
       -v, --verbose         increase output verbosity (use up to 3 times)
 
-Features
---------
-
-* TODO
