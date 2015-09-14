@@ -61,11 +61,13 @@ def parse_args(args):
     debug.add_argument('-v', '--verbose', action='count', default=0,
                        help='increase output verbosity (use up to 3 times)')
 
-    subparsers = parser.add_subparsers()
+    subparsers = parser.add_subparsers(dest='command')
+    subparsers.required = True
 
     # Sub-Parser for command 'diskspace'.
     parser_diskspace = subparsers.add_parser('diskspace',
-                                             help='Checks used diskspace.')
+                                             help='Checks used diskspace.',
+                                             )
     parser_diskspace.add_argument('-w', '--warn',
                                   metavar='WARN', type=int, default=85,
                                   help='Warning if diskspace is greater. '
