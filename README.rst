@@ -21,13 +21,17 @@ http://nagios-check-paloalto.readthedocs.org/en/latest/
 
 Quickstart
 ----------
-Please make sure you have the following packages installed on your machine::
+Please make sure you have python-dev and libxslt1-dev installed on your machine::
 
     $ apt-get install python-dev, libxslt1-dev
 
 To install nagios_check_paloalto::
 
 	$ pip install check_paloalto
+
+or use::
+
+	$ pip3 install check_paloalto
 
 Usage
 -----
