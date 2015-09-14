@@ -3,6 +3,12 @@
 History
 -------
 
+0.1.3 (2015-14-09)
+------------------
+* Disabled warnings for insecure requests to support older installations:
+  https://urllib3.readthedocs.org/en/latest/security.html
+
+
 0.1.2 (2015-14-09)
 ------------------
 * Fixed a bug for parsing args in python3.
