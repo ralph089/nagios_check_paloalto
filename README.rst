@@ -7,7 +7,7 @@ It is written in Python and based on the PA REST API.
 Tested on:
 
 - PA-500 v6.0.1 - v6.0.9
-- PA-3050 v6.0.9
+- PA-3050 v6.0.9 - 6.0.12
 
 .. image:: https://travis-ci.org/ralph-hm/nagios_check_paloalto.svg?branch=master
     :target: https://travis-ci.org/ralph-hm/nagios_check_paloalto?branch=master
@@ -21,9 +21,7 @@ http://nagios-check-paloalto.readthedocs.org/en/latest/
 
 Quickstart
 ----------
-Please make sure you have python-dev and libxslt1-dev installed on your machine::
-
-    $ apt-get install python-dev, libxslt1-dev
+Please make sure you have python-dev and libxslt1-dev installed on your machine.
 
 To install nagios_check_paloalto::
 
@@ -32,6 +30,9 @@ To install nagios_check_paloalto::
 or use::
 
 	$ pip3 install check_paloalto
+
+The plugin requires a token to get information from the PA-REST-API. Please see the following link for more information:
+http://nagios-check-paloalto.readthedocs.org/en/latest/configuration.html#token
 
 Usage
 -----
@@ -63,4 +64,5 @@ Command-line usage::
 
     Debug:
       -v, --verbose         increase output verbosity (use up to 3 times)
+
 
