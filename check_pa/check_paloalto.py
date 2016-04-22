@@ -4,6 +4,7 @@ import sys
 
 import nagiosplugin
 
+import check_pa.user_agent as useragent
 import check_pa.certificate as certificate
 import check_pa.diskspace as diskspace
 import check_pa.load as load
@@ -11,7 +12,6 @@ import check_pa.environmental as environmental
 import check_pa.sessioninfo as sessioninfo
 import check_pa.throughput as throughput
 import check_pa.thermal as thermal
-
 
 @nagiosplugin.guarded
 def main():  # pragma: no cover
@@ -46,6 +46,11 @@ def _thermal(args):
 
 def _throughput(args):
     return throughput.create_check(args)
+
+
+def _useragent(args):
+    return useragent.create_check(args)
+
 
 
 def parse_args(args):
@@ -113,6 +118,12 @@ def parse_args(args):
         metavar='CRIT', type=int, default=95,
         help='Critical if CPU load is greater. (default: %(default)s)')
     parser_load.set_defaults(func=_load)
+
+    # Sub-Parser for command 'useragent'.
+    parser_useragent = subparsers.add_parser(
+        'useragent',
+        help='Checks for running useragents.')
+    parser_useragent.set_defaults(func=_useragent)
 
     # Sub-Parser for command 'environmental'.
     parser_environmental = subparsers.add_parser(
