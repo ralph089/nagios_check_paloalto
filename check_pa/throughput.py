@@ -37,6 +37,12 @@ def create_check(args):
     check.add(NetworkSummary())
     return check
 
+def reset():
+    """
+    Removes the throughput file.
+    """
+    os.remove(os.path.join(tempfile.gettempdir(), 'throughput'))
+    return True
 
 class Throughput(np.Resource):
     statefile = os.path.join(tempfile.gettempdir(), 'throughput')
@@ -61,7 +67,7 @@ class Throughput(np.Resource):
 
         current_time = get_time()
         soup = self.xml_obj.read()
-        ifnet = soup.find('ifnet')  # TODO XPATH
+        ifnet = soup.find('ifnet')
 
         for item in ifnet.find_all('entry'):
             api_inbytes = Finder.find_item(item, 'ibytes')
@@ -74,9 +80,14 @@ class Throughput(np.Resource):
             old_time = cookie.get(self.interface_name + 't', current_time)
 
             if float(api_inbytes) < float(old_inbytes) or not api_inbytes:
-                raise np.CheckError('Couldn\'t get a valid input value!')
+                raise np.CheckError('Couldn\'t get a valid input value!\n'
+                                    '\n'
+                                    'If you recently upgraded the PA firmware or restarted the PA, '
+                                    'please read the documentation.')
             if float(api_outbytes) < float(old_outbytes) or not api_outbytes:
-                raise np.CheckError('Couldn\'t get a valid output value!')
+                raise np.CheckError('Couldn\'t get a valid output value!\n\n'
+                                    'If you recently upgraded the PA firmware or restarted the PA, '
+                                    'please read the documentation.')
 
             cookie[self.interface_name + 'i'] = api_inbytes
             cookie[self.interface_name + 'o'] = api_outbytes

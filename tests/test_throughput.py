@@ -205,7 +205,9 @@ class TestThroughput(object):
 
             assert check.exitcode == 3
             assert check.state == ServiceState(code=3, text='unknown')
-            assert check.summary_str == 'Couldn\'t get a valid input value!'
+            assert check.summary_str == 'Couldn\'t get a valid input value!\n\n' \
+                                        'If you recently upgraded the PA firmware or restarted the PA, ' \
+                                        'please read the documentation.'
 
     @responses.activate
     def test_new_output_less_than_old(self):
@@ -257,7 +259,9 @@ class TestThroughput(object):
 
             assert check.exitcode == 3
             assert check.state == ServiceState(code=3, text='unknown')
-            assert check.summary_str == 'Couldn\'t get a valid output value!'
+            assert check.summary_str == 'Couldn\'t get a valid output value!\n\n' \
+                                        'If you recently upgraded the PA firmware or restarted the PA, ' \
+                                        'please read the documentation.'
 
     @responses.activate
     def test_same_time(self):
