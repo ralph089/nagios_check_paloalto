@@ -10,6 +10,7 @@ Contents:
    installation
    configuration
    usage
+   faq
    contributing
    authors
    history

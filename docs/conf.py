@@ -258,7 +258,7 @@ texinfo_documents = [
      u'nagios_check_paloalto Documentation',
      u'Ralph Offinger',
      'check_paloalto',
-     'One line description of project.',
+     'Checks PaloAlto Firewall Systems',
      'Miscellaneous'),
 ]
 

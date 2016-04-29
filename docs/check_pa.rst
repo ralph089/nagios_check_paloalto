@@ -68,6 +68,14 @@ check_pa.throughput module
     :undoc-members:
     :show-inheritance:
 
+check_pa.user_agent module
+--------------------------
+
+.. automodule:: check_pa.user_agent
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 check_pa.xml_reader module
 --------------------------
 
