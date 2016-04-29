@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<response status="success">
+    <result><![CDATA[
+Agent: Agent1 - Name1(vsys: vsys1) Host: 10.10.10.10(10.10.10.10):5007
+	Status                                            : conn:idle
+	Version                                           : 0x5
+	num of connection tried                           : 6802
+	num of connection succeeded                       : 2
+	num of connection failed                          : 6800
+	num of status msgs rcvd                           : 264126
+	num of request of status msgs sent                : 264131
+	num of request of ip mapping msgs sent            : 1127047
+	num of request of new ip mapping msgs sent        : 0
+	num of request of all ip mapping msgs sent        : 401
+	num of user ip mapping msgs rcvd                  : 182600
+	num of ip msgs rcvd but failed to proc            : 0
+	num of user ip mapping add entries rcvd           : 429934
+	num of user ip mapping del entries rcvd           : 3963
+	num of request of group msgs sent                 : 0
+	num of group msgs rcvd                            : 0
+	num of group msgs recvd buf fail to proc          : 0
+	num of xml data msgs rcvd                         : 0
+	num of xml data msgs rcvd but failed to proc      : 0
+	Last heard(seconds ago)                           : 1
+	Messages State:
+	  Job ID                                          : 0
+	  Sent messages                                   : 1391980
+	  Rcvd messages                                   : 447130
+	  Lost messages                                   : 0
+	  Failed to send messages                         : 0
+	  Queued sending msgs with priority 0             : 0
+	  Queued sending msgs with priority 1             : 0
+	  Queued rcvring msgs with priority 0             : 0
+	  Queued rcvring msgs with priority 1             : 0
+
+Agent: Agent2 - Name2(vsys: vsys1) Host: 192.168.0.1(192.168.0.1):5007
+	Status                                            : conn:idle
+	Version                                           : 0x5
+	num of connection tried                           : 3672
+	num of connection succeeded                       : 9
+	num of connection failed                          : 3663
+	num of status msgs rcvd                           : 263979
+	num of request of status msgs sent                : 264010
+	num of request of ip mapping msgs sent            : 1126369
+	num of request of new ip mapping msgs sent        : 0
+	num of request of all ip mapping msgs sent        : 404
+	num of user ip mapping msgs rcvd                  : 143766
+	num of ip msgs rcvd but failed to proc            : 0
+	num of user ip mapping add entries rcvd           : 223216
+	num of user ip mapping del entries rcvd           : 590
+	num of request of group msgs sent                 : 0
+	num of group msgs rcvd                            : 0
+	num of group msgs recvd buf fail to proc          : 0
+	num of xml data msgs rcvd                         : 0
+	num of xml data msgs rcvd but failed to proc      : 0
+	Last heard(seconds ago)                           : 1
+	Messages State:
+	  Job ID                                          : 0
+	  Sent messages                                   : 1391185
+	  Rcvd messages                                   : 408149
+	  Lost messages                                   : 0
+	  Failed to send messages                         : 2
+	  Queued sending msgs with priority 0             : 0
+	  Queued sending msgs with priority 1             : 0
+	  Queued rcvring msgs with priority 0             : 0
+	  Queued rcvring msgs with priority 1             : 0
+
+Agent: Agent3 - Name3(vsys: vsys1) Host:11.11.11.11(11.11.11.11):5007
+	Status                                            : conn:idle
+	Version                                           : 0x5
+	num of connection tried                           : 6786
+	num of connection succeeded                       : 2
+	num of connection failed                          : 6784
+	num of status msgs rcvd                           : 264131
+	num of request of status msgs sent                : 264140
+	num of request of ip mapping msgs sent            : 1127097
+	num of request of new ip mapping msgs sent        : 0
+	num of request of all ip mapping msgs sent        : 401
+	num of user ip mapping msgs rcvd                  : 289148
+	num of ip msgs rcvd but failed to proc            : 0
+	num of user ip mapping add entries rcvd           : 785331
+	num of user ip mapping del entries rcvd           : 3693
+	num of request of group msgs sent                 : 0
+	num of group msgs rcvd                            : 0
+	num of group msgs recvd buf fail to proc          : 0
+	num of xml data msgs rcvd                         : 0
+	num of xml data msgs rcvd but failed to proc      : 0
+	Last heard(seconds ago)                           : 1
+	Messages State:
+	  Job ID                                          : 0
+	  Sent messages                                   : 1392038
+	  Rcvd messages                                   : 553683
+	  Lost messages                                   : 0
+	  Failed to send messages                         : 1
+	  Queued sending msgs with priority 0             : 0
+	  Queued sending msgs with priority 1             : 0
+	  Queued rcvring msgs with priority 0             : 0
+	  Queued rcvring msgs with priority 1             : 0
+
+
+]]></result>
+</response>

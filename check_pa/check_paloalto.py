@@ -125,6 +125,14 @@ def parse_args(args):
     parser_useragent = subparsers.add_parser(
         'useragent',
         help='Checks for running useragents.')
+    parser_useragent.add_argument(
+        '-w', '--warn',
+        metavar='WARN', type=int, default=60,
+        help='Warning if agent is not responding for a given amount of seconds. (default: %(default)s)')
+    parser_useragent.add_argument(
+        '-c', '--crit',
+        metavar='CRIT', type=int, default=240,
+        help='Critical if agent is not responding for a given amount of seconds. (default: %(default)s)')
     parser_useragent.set_defaults(func=_useragent)
 
     # Sub-Parser for command 'environmental'.

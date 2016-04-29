@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import re
-from lxml import etree
+from nagiosplugin import CheckError
 
 import nagiosplugin as np
 
@@ -18,7 +17,9 @@ def create_check(args):
     """
     return np.Check(
         UserAgent(args.host, args.token),
-        np.ScalarContext('useragent'))
+        np.ScalarContext('agent_last_heared', args.warn, args.crit),
+        UserAgentContext('agent_connected'),
+        UserAgentSummary())
 
 
 class UserAgent(np.Resource):
@@ -31,15 +32,56 @@ class UserAgent(np.Resource):
 
     def probe(self):
         """
-        Querys the REST-API and create user agent metrics..
+        Querys the REST-API and create user agent metrics.
 
         :return: a user agent metric.
         """
         _log.info('Reading XML from: %s', self.xml_obj.build_request_url())
         soup = self.xml_obj.read()
-        s = soup.result.string
-        available_agents = re.findall('(Agent: ).+?(?=( Version :))', s)
-        for agent in available_agents:
-            _log.info('Agent: %s', agent)
+        s = soup.result.string.strip()
+        useragents = s.split('\n\n')
+
+        for useragent in useragents:
+            agentlist = useragent.split('\n')
+            name = agentlist[0]
+            status = agentlist[1].split(':')[1].strip()
+            last_heared = int(agentlist[20].split(':')[1].strip())
+
+            if not (name.startswith('Agent')):
+                raise CheckError('Unexpected query result!')
+            else:
+                _log.info('Checking %s ', name)
+                _log.info('Found status %s', status)
+                _log.info('Last heared: %i seconds ago', last_heared)
+                yield np.Metric(name, status, context='agent_connected')
+                yield np.Metric(name, last_heared, context='agent_last_heared')
 
 
+class UserAgentContext(np.Context):
+    def __init__(self, name, fmt_metric='{name} is {valueunit}',
+                 result_cls=np.Result):
+        super(UserAgentContext, self).__init__(name, fmt_metric,
+                                               result_cls)
+
+    def evaluate(self, metric, resource):
+        if metric.value == 'conn':
+            return self.result_cls(np.Ok, None, metric)
+        else:
+            return self.result_cls(np.Critical, None, metric)
+
+
+class UserAgentSummary(np.Summary):
+    def ok(self, results):
+        return 'All agents are connected and responding.'
+
+    def problem(self, results):
+        s = ''
+        l = []
+        for result in results.results:
+            if result.state == np.Warn or result.state == np.Critical:
+                if result.metric.context == 'agent_last_heared':
+                    l.append("%s last heared: %i seconds ago" % (result.metric.name, result.metric.value))
+                if result.metric.context == 'agent_connected':
+                    l.append("%s connection status is %s"% (result.metric.name, result.metric.value))
+        s += ', '.join(l)
+        return s
