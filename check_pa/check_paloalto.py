@@ -17,7 +17,7 @@ import check_pa.thermal as thermal
 def main():  # pragma: no cover
     args = parse_args(sys.argv[1:])
     check = args.func(args)
-    check.main(verbose=args.verbose)
+    check.main(verbose=args.verbose, timeout = args.timeout)
 
 
 def _diskspace(args):
@@ -65,6 +65,8 @@ def parse_args(args):
     debug = parser.add_argument_group('Debug')
     debug.add_argument('-v', '--verbose', action='count', default=0,
                        help='increase output verbosity (use up to 3 times)')
+    debug.add_argument('-t', '--timeout', default=10,
+                       help='abort check execution after so many seconds (use 0 for no timeout)')
 
     subparsers = parser.add_subparsers(dest='command')
     subparsers.required = True
