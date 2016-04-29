@@ -15,4 +15,4 @@ counter.
 
 You can solve this error by executing the following command::
 
-     $  check_paloalto reset_throughput
+     $  check_paloalto -H IP -T TOKEN throughput -i 'any' --reset

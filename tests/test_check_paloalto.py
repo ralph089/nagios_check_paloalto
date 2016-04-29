@@ -27,6 +27,7 @@ class TestCheckPaloAlto(object):
         cls.exclude = ''
         cls.range = '0:20'
         cls.interface = 'test'
+        cls.reset = False
 
     def test_arg_diskspace(self):
         args = parse_args(['-H', self.host, '-T', self.token, 'diskspace'])

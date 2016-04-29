@@ -15,14 +15,9 @@ import check_pa.thermal as thermal
 
 @nagiosplugin.guarded
 def main():  # pragma: no cover
-    if sys.argv[1] == "reset_throughput":
-        if throughput.reset():
-            print('Success')
-        exit()
-    else:
-        args = parse_args(sys.argv[1:])
-        check = args.func(args)
-        check.main(verbose=args.verbose, timeout=args.timeout)
+    args = parse_args(sys.argv[1:])
+    check = args.func(args)
+    check.main(verbose=args.verbose, timeout=args.timeout)
 
 
 def _diskspace(args):
@@ -50,7 +45,12 @@ def _thermal(args):
 
 
 def _throughput(args):
-    return throughput.create_check(args)
+    if args.reset:
+        if throughput.reset():
+            print("Success!")
+            exit()
+    else:
+        return throughput.create_check(args)
 
 
 def _useragent(args):
@@ -149,6 +149,14 @@ def parse_args(args):
     parser_sessinfo = subparsers.add_parser(
         'sessinfo',
         help='Checks important session parameters.')
+    parser_sessinfo.add_argument(
+        '-w', '--warn',
+        metavar='WARN', type=int, default=20000,
+        help='Warning if number of sessions is greater. (default: %(default)s)')
+    parser_sessinfo.add_argument(
+        '-c', '--crit',
+        metavar='CRIT', type=int, default=50000,
+        help='Critical if number of sessions is greater. (default: %(default)s)')
     parser_sessinfo.set_defaults(func=_sessinfo)
 
     # Sub-Parser for command 'thermal'.
@@ -176,6 +184,7 @@ def parse_args(args):
         nargs='?',
         required=True,
     )
+    parser_throughput.add_argument('--reset', action='store_true')
     parser_throughput.set_defaults(func=_throughput)
 
     return parser.parse_args(args)
