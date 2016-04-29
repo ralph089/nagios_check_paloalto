@@ -17,8 +17,7 @@ def create_check(args):
     """
     return np.Check(
         DiskSpace(args.host, args.token),
-        np.ScalarContext('diskspace', args.warn,
-                         args.crit),
+        np.ScalarContext('diskspace', args.warn, args.crit),
         DiskSpaceSummary())
 
 
