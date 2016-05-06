@@ -28,11 +28,11 @@ Please make sure you have python-dev and libxslt1-dev installed on your machine.
 
 To install nagios_check_paloalto::
 
-	$ pip install check_paloalto
+	$ pip install check_paloalto --upgrade
 
 or use::
 
-	$ pip3 install check_paloalto
+	$ pip3 install check_paloalto --upgrade
 
 The plugin requires a token to get information from the PA-REST-API. Please see the following link for more information:
 http://nagios-check-paloalto.readthedocs.org/en/latest/configuration.html#token
