@@ -4,7 +4,7 @@ Usage
 
 Command-line usage::
 
-    usage: check_paloalto [-h] [-H HOST] [-T TOKEN] [-v] [-t TIMEOUT] [--version]
+    usage: check_paloalto [-h] -H HOST -T TOKEN [-v] [-t TIMEOUT] [--version]
                       {diskspace,certificates,load,useragent,environmental,sessinfo,thermal,throughput}
                       ...
 
@@ -53,7 +53,7 @@ usage::
 
 example::
 
-    $ check_paloalto [-H HOST] [-T TOKEN] diskspace
+    $ check_paloalto -H HOST -T TOKEN diskspace
     $ DISKSPACE OK - sda3: 46% used space, sda5: 41% used space, sda6: 38% used space, sda8: 55% used space | sda3=46;85;95;0;100 sda5=41;85;95;0;100 sda6=38;85;95;0;100 sda8=55;85;95;0;100
 
 certificates
@@ -73,7 +73,7 @@ usage::
 
 example::
 
-    $ check_paloalto [-H HOST] [-T TOKEN] certificates
+    $ check_paloalto -H HOST -T TOKEN certificates
     $ CERTIFICATE WARNING - Certificate1 expires in 8 days
 
 load
@@ -89,7 +89,7 @@ usage::
 
 example::
 
-    $ check_paloalto [-H HOST] [-T TOKEN] load
+    $ check_paloalto -H HOST -T TOKEN load
     $ LOAD OK - CPU0: 0.0%, CPU1: 1.0%, CPU2: 4.0%, CPU3: 5.0%, CPU4: 6.0%, CPU5: 5.0% | CPU0=0.0%;85;95;0;100 CPU1=1.0%;85;95;0;100 CPU2=4.0%;85;95;0;100 CPU3=5.0%;85;95;0;100 CPU4=6.0%;85;95;0;100 CPU5=5.0%;85;95;0;100
 
 environmental
@@ -103,7 +103,7 @@ usage::
 
 example::
 
-    $ check_paloalto [-H HOST] [-T TOKEN] environmental
+    $ check_paloalto -H HOST -T TOKEN environmental
     $ ENVIRONMENTAL OK - No alarms found.
 
 
@@ -118,7 +118,7 @@ usage::
 
 example::
 
-    $ check_paloalto [-H HOST] [-T TOKEN] sessinfo
+    $ check_paloalto -H HOST -T TOKEN sessinfo
     $ SESSINFO OK - Max possible sessions: 123456 / Active sessions: 6000 / Throughput: 2000kbps | actsess=6000;;;0 maxsess=123456;;;0 throughput=2000kbps;;;0
 
 
@@ -135,7 +135,7 @@ usage::
 
 example::
 
-    $ check_paloalto [-H HOST] [-T TOKEN] thermal
+    $ check_paloalto -H HOST -T TOKEN thermal
     $ THERMAL OK - Temperature @ Ocelot is 29 degrees Celsius, Temperature @ Switch is 33 degrees Celsius, Temperature @ Cavium is 36 degrees Celsius, Temperature @ Intel PHY is 24 degrees Celsius | 'Temperature @ Cavium'=36.5;40;45;5.0;60.0 'Temperature @ Intel PHY'=24.2;40;45;5.0;60.0 'Temperature @ Ocelot'=29.9;40;45;5.0;60.0 'Temperature @ Switch'=33.8;40;45;5.0;60.0
 
 throughput
@@ -151,10 +151,10 @@ usage::
 
 example::
 
-    $ check_paloalto [-H HOST] [-T TOKEN] throughput -i ethernet1/1
+    $ check_paloalto -H HOST -T TOKEN throughput -i ethernet1/1
     $ THROUGHPUT OK - Input is 3.73 Mb/s - Output is 3.46 Mb/s | 'inBytesethernet1/1'=3731660.0b;;;0 'outBytesethernet1/1'=3461314.67b;;;0
 
-    $ check_paloalto [-H HOST] [-T TOKEN] throughput -i ethernet1/1,ethernet1/2
+    $ check_paloalto -H HOST -T TOKEN throughput -i ethernet1/1,ethernet1/2
     $ THROUGHPUT OK - Input is 10.53 Mb/s - Output is 13.94 Mb/s | 'inBytesethernet1/1'=2501484.0b;;;0 'inBytesethernet1/2'=8025331.2b;;;0 'outBytesethernet1/1'=11376622.67b;;;0 'outBytesethernet1/2'=2561513.6b;;;0
 
 To get all available names of your interfaces, please have a look at
@@ -176,5 +176,5 @@ usage::
 
 example::
 
-    $ check_paloalto [-H HOST] [-T TOKEN] useragent
+    $ check_paloalto -H HOST -T TOKEN useragent
     $ USERAGENT OK - All agents are connected and responding. | 'Agent: Agent1 - HOST1(vsys: vsys1) Host: 192.168.1.1(192.168.1.1):5007'=1;60;240

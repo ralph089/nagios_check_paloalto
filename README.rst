@@ -41,7 +41,7 @@ Usage
 -----
 Command-line usage::
 
-    usage: check_paloalto [-h] [-H HOST] [-T TOKEN] [-v] [-t TIMEOUT] [--version]
+    usage: check_paloalto [-h] -H HOST -T TOKEN [-v] [-t TIMEOUT] [--version]
                       {diskspace,certificates,load,useragent,environmental,sessinfo,thermal,throughput}
                       ...
 
