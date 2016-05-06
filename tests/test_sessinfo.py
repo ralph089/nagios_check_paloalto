@@ -88,7 +88,7 @@ class TestSessionInfo(object):
 
 
     @responses.activate
-    def test_sessinfo_warning(self):
+    def test_sessinfo_warning2(self):
         f = 'mock_result.xml'
         self.warn = 4000
         self.crit = 5000

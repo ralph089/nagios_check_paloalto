@@ -2,10 +2,19 @@
 
 History
 -------
+0.1.6 (2016-06-05)
+------------------
+
+* Added script version switch
+* Improved error handling
+* Updated documentation
+* Upgraded dependencies
+
 0.1.5 (2016-29-04)
 ------------------
 
 * Fixed a argparse bug
+
 
 0.1.4 (2016-29-04)
 ------------------

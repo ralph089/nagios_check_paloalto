@@ -15,6 +15,9 @@ Tested on:
 .. image:: https://coveralls.io/repos/ralph-hm/nagios_check_paloalto/badge.svg?branch=master&service=github
     :target: https://coveralls.io/github/ralph-hm/nagios_check_paloalto?branch=master
 
+.. image:: https://badge.fury.io/py/check_paloalto.svg
+    :target: https://badge.fury.io/py/check_paloalto
+
 Documentation
 -------------
 http://nagios-check-paloalto.readthedocs.org/en/latest/
@@ -38,22 +41,21 @@ Usage
 -----
 Command-line usage::
 
-    usage: check_paloalto [-h] [-H HOST] [-T TOKEN] [-v] [-t TIMEOUT]
+    usage: check_paloalto [-h] [-H HOST] [-T TOKEN] [-v] [-t TIMEOUT] [--version]
                       {diskspace,certificates,load,useragent,environmental,sessinfo,thermal,throughput}
                       ...
 
     positional arguments:
       {diskspace,certificates,load,useragent,environmental,sessinfo,thermal,throughput}
-        diskspace           Checks used diskspace.
-        certificates        Checks the certificate store for expiring
-                            certificates: Outputs is a warning, if a certificate
-                            is in range.
-        load                Checks the CPU load.
-        useragent           Checks for running useragents.
-        environmental       Checks if an alarm is found.
-        sessinfo            Checks important session parameters.
-        thermal             Checks the temperature.
-        throughput          Checks the throughput.
+        diskspace           check used diskspace.
+        certificates        check the certificate store for expiring certificates:
+                            Outputs is a warning, if a certificate is in range.
+        load                check the CPU load.
+        useragent           check for running useragents.
+        environmental       check if an alarm is found.
+        sessinfo            check important session parameters.
+        thermal             check the temperature.
+        throughput          check the throughput.
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -68,4 +70,8 @@ Command-line usage::
       -t TIMEOUT, --timeout TIMEOUT
                             abort check execution after so many seconds (use 0 for
                             no timeout)
+
+    Info:
+      --version             show program's version number and exit
+
 

@@ -96,6 +96,7 @@ class TestUserAgent(object):
                                         'Agent: Agent3 - Name3(vsys: vsys1) Host:11.11.11.11(11.11.11.11):5007 ' \
                                         'connection status is non-conn'
 
+    @responses.activate
     def test_useragent_critical_last_heared(self):
         self.warn = 2
         self.crit = 30
@@ -116,5 +117,28 @@ class TestUserAgent(object):
 
             assert check.exitcode == 2
             assert check.state == ServiceState(code=2, text='critical')
-            assert check.summary_str == 'Agent: Agent1 - Name1(vsys: vsys1) Host: 10.10.10.10(10.10.10.10):5007 ' \
-                                        'last heared: 61 seconds ago'
+            assert check.summary_str == 'Agent: Agent1 - Name1(vsys: vsys1) Host: 10.10.10.10(10.10.10.10):5007 last heared: 61 seconds ago'
+
+
+    @responses.activate
+    def test_useragent_changed_format(self):
+        self.warn = 2
+        self.crit = 30
+
+        f = 'useragent_changed_format.xml'
+        check = check_pa.user_agent.create_check(self)
+        obj = check.resources[0]
+
+        with responses.RequestsMock() as rsps:
+            rsps.add(responses.GET,
+                     obj.xml_obj.build_request_url(),
+                     body=read_xml(f),
+                     status=200,
+                     content_type='document',
+                     match_querystring=True)
+            with pytest.raises(SystemExit):
+                check.main(verbose=3)
+
+            assert check.exitcode == 3
+            assert check.state == ServiceState(code=3, text='unknown')
+

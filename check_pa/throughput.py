@@ -37,7 +37,7 @@ def create_check(args):
     check.add(NetworkSummary())
     return check
 
-def reset():
+def reset(): # pragma: no cover
     """
     Removes the throughput file.
     """

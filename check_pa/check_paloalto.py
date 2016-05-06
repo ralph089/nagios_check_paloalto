@@ -3,6 +3,7 @@ import argparse
 import sys
 
 import nagiosplugin
+import pkg_resources
 
 import check_pa.user_agent as useragent
 import check_pa.certificate as certificate
@@ -12,6 +13,7 @@ import check_pa.environmental as environmental
 import check_pa.sessioninfo as sessioninfo
 import check_pa.throughput as throughput
 import check_pa.thermal as thermal
+
 
 @nagiosplugin.guarded
 def main():  # pragma: no cover
@@ -57,27 +59,33 @@ def _useragent(args):
     return useragent.create_check(args)
 
 
-
 def parse_args(args):
     parser = argparse.ArgumentParser(description=__doc__)
 
     connection = parser.add_argument_group('Connection')
     connection.add_argument('-H', '--host',
-                            help='PaloAlto Server Hostname')
+                            help='PaloAlto Server Hostname',
+                            required=True)
     connection.add_argument('-T', '--token',
-                            help='Generated Token for REST-API access')
+                            help='Generated Token for REST-API access',
+                            required=True)
 
     debug = parser.add_argument_group('Debug')
     debug.add_argument('-v', '--verbose', action='count', default=0,
                        help='increase output verbosity (use up to 3 times)')
     debug.add_argument('-t', '--timeout', default=10,
                        help='abort check execution after so many seconds (use 0 for no timeout)')
+
+    info = parser.add_argument_group('Info')
+    info.add_argument('--version', action='version',
+                      version='%(prog)s ' + pkg_resources.require("check_paloalto")[0].version)
+
     subparsers = parser.add_subparsers(dest='command')
     subparsers.required = True
 
     # Sub-Parser for command 'diskspace'.
     parser_diskspace = subparsers.add_parser('diskspace',
-                                             help='Checks used diskspace.',
+                                             help='check used diskspace.',
                                              )
     parser_diskspace.add_argument('-w', '--warn',
                                   metavar='WARN', type=int, default=85,
@@ -93,11 +101,11 @@ def parse_args(args):
     # Sub-Parser for command 'certificates'.
     parser_certificates = subparsers.add_parser(
         'certificates',
-        help='Checks the certificate store for '
+        help='check the certificate store for '
              'expiring certificates: Outputs is a warning, '
              'if a certificate is in range.')
     parser_certificates.add_argument(
-        '-ex', '--exclude', default='', help='Exclude certificates from '
+        '-ex', '--exclude', default='', help='exclude certificates from '
                                              'check by name.')
     parser_certificates.add_argument(
         '-r', '--range',
@@ -114,7 +122,7 @@ def parse_args(args):
     # Sub-Parser for command 'load'.
     parser_load = subparsers.add_parser(
         'load',
-        help='Checks the CPU load.')
+        help='check the CPU load.')
     parser_load.add_argument(
         '-w', '--warn',
         metavar='WARN', type=int, default=85,
@@ -128,7 +136,7 @@ def parse_args(args):
     # Sub-Parser for command 'useragent'.
     parser_useragent = subparsers.add_parser(
         'useragent',
-        help='Checks for running useragents.')
+        help='check for running useragents.')
     parser_useragent.add_argument(
         '-w', '--warn',
         metavar='WARN', type=int, default=60,
@@ -142,13 +150,13 @@ def parse_args(args):
     # Sub-Parser for command 'environmental'.
     parser_environmental = subparsers.add_parser(
         'environmental',
-        help='Checks if an alarm is found.')
+        help='check if an alarm is found.')
     parser_environmental.set_defaults(func=_environmental)
 
     # Sub-Parser for command 'sessinfo'.
     parser_sessinfo = subparsers.add_parser(
         'sessinfo',
-        help='Checks important session parameters.')
+        help='check important session parameters.')
     parser_sessinfo.add_argument(
         '-w', '--warn',
         metavar='WARN', type=int, default=20000,
@@ -162,7 +170,7 @@ def parse_args(args):
     # Sub-Parser for command 'thermal'.
     parser_thermal = subparsers.add_parser(
         'thermal',
-        help='Checks the temperature.')
+        help='check the temperature.')
     parser_thermal.add_argument(
         '-w', '--warn',
         metavar='WARN', type=int, default=40,
@@ -176,7 +184,7 @@ def parse_args(args):
     # Sub-Parser for command 'throughput'.
     parser_throughput = subparsers.add_parser(
         'throughput',
-        help='Checks the throughput.')
+        help='check the throughput.')
 
     parser_throughput.add_argument(
         '-i', '--interface',

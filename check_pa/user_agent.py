@@ -42,19 +42,19 @@ class UserAgent(np.Resource):
         useragents = s.split('\n\n')
 
         for useragent in useragents:
-            agentlist = useragent.split('\n')
-            name = agentlist[0]
-            status = agentlist[1].split(':')[1].strip()
-            last_heared = int(agentlist[20].split(':')[1].strip())
-
-            if not (name.startswith('Agent')):
+            agent_details = useragent.split('\n')
+            if (len(agent_details) != 31) or not (agent_details[0].startswith('Agent')):
                 raise CheckError('Unexpected query result!')
-            else:
-                _log.info('Checking %s ', name)
-                _log.info('Found status %s', status)
-                _log.info('Last heared: %i seconds ago', last_heared)
-                yield np.Metric(name, status, context='agent_connected')
-                yield np.Metric(name, last_heared, context='agent_last_heared')
+
+            name = agent_details[0]
+            status = agent_details[1].split(':')[1].strip()
+            last_heared = int(agent_details[20].split(':')[1].strip())
+
+            _log.info('Checking %s ', name)
+            _log.info('Found status %s', status)
+            _log.info('Last heared: %i seconds ago', last_heared)
+            yield np.Metric(name, status, context='agent_connected')
+            yield np.Metric(name, last_heared, context='agent_last_heared')
 
 
 class UserAgentContext(np.Context):

@@ -4,21 +4,21 @@ Usage
 
 Command-line usage::
 
-    usage: check_paloalto [-h] [-H HOST] [-T TOKEN] [-v]
-                          {diskspace,certificates,load,environmental,sessinfo,thermal,throughput}
-                          ...
+    usage: check_paloalto [-h] [-H HOST] [-T TOKEN] [-v] [-t TIMEOUT] [--version]
+                      {diskspace,certificates,load,useragent,environmental,sessinfo,thermal,throughput}
+                      ...
 
     positional arguments:
-      {diskspace,certificates,load,environmental,sessinfo,thermal,throughput}
-        diskspace           Checks used diskspace.
-        certificates        Checks the certificate store for expiring
-                            certificates: Outputs is a warning, if a certificate
-                            is in range.
-        load                Checks the CPU load.
-        environmental       Checks if an alarm is found.
-        sessinfo            Checks important session parameters.
-        thermal             Checks the temperature.
-        throughput          Checks the throughput.
+      {diskspace,certificates,load,useragent,environmental,sessinfo,thermal,throughput}
+        diskspace           check used diskspace.
+        certificates        check the certificate store for expiring certificates:
+                            Outputs is a warning, if a certificate is in range.
+        load                check the CPU load.
+        useragent           check for running useragents.
+        environmental       check if an alarm is found.
+        sessinfo            check important session parameters.
+        thermal             check the temperature.
+        throughput          check the throughput.
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -30,6 +30,13 @@ Command-line usage::
 
     Debug:
       -v, --verbose         increase output verbosity (use up to 3 times)
+      -t TIMEOUT, --timeout TIMEOUT
+                            abort check execution after so many seconds (use 0 for
+                            no timeout)
+
+    Info:
+      --version             show program's version number and exit
+
 
 To check your Palo Alto Firewall, there are several commands available.
 
@@ -153,3 +160,21 @@ example::
 To get all available names of your interfaces, please have a look at
 https://www.paloaltonetworks.com/documentation/61/pan-os/pan-os/getting-started/configure-interfaces-and-zones.html
 
+useragents
+----------
+usage::
+
+    usage: check_paloalto useragent [-h] [-w WARN] [-c CRIT]
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -w WARN, --warn WARN  Warning if agent is not responding for a given amount
+                            of seconds. (default: 60)
+      -c CRIT, --crit CRIT  Critical if agent is not responding for a given amount
+                            of seconds. (default: 240)
+
+
+example::
+
+    $ check_paloalto [-H HOST] [-T TOKEN] useragent
+    $ USERAGENT OK - All agents are connected and responding. | 'Agent: Agent1 - HOST1(vsys: vsys1) Host: 192.168.1.1(192.168.1.1):5007'=1;60;240
