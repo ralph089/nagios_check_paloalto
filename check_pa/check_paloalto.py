@@ -78,7 +78,7 @@ def parse_args(args):
 
     info = parser.add_argument_group('Info')
     info.add_argument('--version', action='version',
-                      version='%(prog)s ' + pkg_resources.require("check_paloalto")[0].version)
+                      version='%(prog)s 0.1.6')
 
     subparsers = parser.add_subparsers(dest='command')
     subparsers.required = True

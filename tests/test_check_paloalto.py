@@ -7,11 +7,10 @@ test_check_paloalto
 
 Tests for `check_paloalto` module.
 """
-import pytest
 import responses
 
 from check_pa.check_paloalto import parse_args, _diskspace, _certificates, \
-    _environmental, _load, _sessinfo, _thermal, _throughput
+    _environmental, _load, _sessinfo, _thermal, _throughput, _useragent
 from tests.conftest import read_xml
 
 
@@ -34,6 +33,12 @@ class TestCheckPaloAlto(object):
         assert args.host == self.host
         assert args.token == self.token
         assert args.func.__name__ == _diskspace.__name__
+
+    def test_arg_useragent(self):
+        args = parse_args(['-H', self.host, '-T', self.token, 'useragent'])
+        assert args.host == self.host
+        assert args.token == self.token
+        assert args.func.__name__ == _useragent.__name__
 
     def test_arg_certificates(self):
         args = parse_args(
