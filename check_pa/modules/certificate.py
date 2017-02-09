@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from datetime import datetime
 
 import nagiosplugin as np
+from datetime import datetime
 
 from check_pa.xml_reader import XMLReader, Finder
 
@@ -18,7 +18,7 @@ def get_now():
     """
     return datetime.today()  # pragma: no cover
 
-
+import sys
 def create_check(args):
     """
 

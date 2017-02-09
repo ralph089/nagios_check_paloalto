@@ -5,15 +5,15 @@
 test_check_paloalto
 ----------------------------------
 
-Tests for `check_paloalto` module.
+Tests for `check_paloalto` modules.
 """
 
-import responses
 import pytest
+import responses
 from nagiosplugin.state import ServiceState
 
-import check_pa.diskspace
-from tests.conftest import read_xml
+import check_pa.modules.diskspace
+from conftest import read_xml
 
 
 class TestDiskspace(object):
@@ -29,7 +29,7 @@ class TestDiskspace(object):
         self.crit = 90
 
         f = 'diskspace.xml'
-        check = check_pa.diskspace.create_check(self)
+        check = check_pa.modules.diskspace.create_check(self)
         obj = check.resources[0]
 
         with responses.RequestsMock() as rsps:
@@ -55,7 +55,7 @@ class TestDiskspace(object):
         self.crit = 90
 
         f = 'diskspace.xml'
-        check = check_pa.diskspace.create_check(self)
+        check = check_pa.modules.diskspace.create_check(self)
         obj = check.resources[0]
 
         with responses.RequestsMock() as rsps:

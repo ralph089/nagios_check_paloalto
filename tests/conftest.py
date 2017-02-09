@@ -5,7 +5,7 @@
 test_check_paloalto
 ----------------------------------
 
-Tests for `check_paloalto` module.
+Tests for `check_paloalto` modules.
 """
 
 import os

@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from nagiosplugin import CheckError
-
 import nagiosplugin as np
 
+from nagiosplugin import CheckError
 from check_pa.xml_reader import XMLReader
 
 _log = logging.getLogger('nagiosplugin')
@@ -82,6 +81,6 @@ class UserAgentSummary(np.Summary):
                 if result.metric.context == 'agent_last_heared':
                     l.append("%s last heared: %i seconds ago" % (result.metric.name, result.metric.value))
                 if result.metric.context == 'agent_connected':
-                    l.append("%s connection status is %s"% (result.metric.name, result.metric.value))
+                    l.append("%s connection status is %s" % (result.metric.name, result.metric.value))
         s += ', '.join(l)
         return s

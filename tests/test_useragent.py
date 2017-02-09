@@ -5,15 +5,15 @@
 test_check_paloalto
 ----------------------------------
 
-Tests for `check_paloalto` module.
+Tests for `check_paloalto` modules.
 """
 
-import responses
 import pytest
+import responses
 from nagiosplugin.state import ServiceState
 
-import check_pa.user_agent
-from tests.conftest import read_xml
+import check_pa.modules.useragent
+from conftest import read_xml
 
 
 class TestUserAgent(object):
@@ -29,7 +29,7 @@ class TestUserAgent(object):
         self.crit = 240
 
         f = 'useragent_ok.xml'
-        check = check_pa.user_agent.create_check(self)
+        check = check_pa.modules.useragent.create_check(self)
         obj = check.resources[0]
 
         with responses.RequestsMock() as rsps:
@@ -52,7 +52,7 @@ class TestUserAgent(object):
         self.crit = 240
 
         f = 'useragent_last_heared.xml'
-        check = check_pa.user_agent.create_check(self)
+        check = check_pa.modules.useragent.create_check(self)
         obj = check.resources[0]
 
         with responses.RequestsMock() as rsps:
@@ -76,7 +76,7 @@ class TestUserAgent(object):
         self.crit = 240
 
         f = 'useragent_no_connection.xml'
-        check = check_pa.user_agent.create_check(self)
+        check = check_pa.modules.useragent.create_check(self)
         obj = check.resources[0]
 
         with responses.RequestsMock() as rsps:
@@ -102,7 +102,7 @@ class TestUserAgent(object):
         self.crit = 30
 
         f = 'useragent_last_heared.xml'
-        check = check_pa.user_agent.create_check(self)
+        check = check_pa.modules.useragent.create_check(self)
         obj = check.resources[0]
 
         with responses.RequestsMock() as rsps:
@@ -126,7 +126,7 @@ class TestUserAgent(object):
         self.crit = 30
 
         f = 'useragent_changed_format.xml'
-        check = check_pa.user_agent.create_check(self)
+        check = check_pa.modules.useragent.create_check(self)
         obj = check.resources[0]
 
         with responses.RequestsMock() as rsps:

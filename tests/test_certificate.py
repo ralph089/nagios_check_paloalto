@@ -5,16 +5,16 @@
 test_check_paloalto
 ----------------------------------
 
-Tests for `check_paloalto` module.
+Tests for `check_paloalto` modules.
 """
 
-import responses
 import mock
 import pytest
+import responses
 from nagiosplugin.state import ServiceState
 
-import check_pa.certificate
-from tests.conftest import read_xml
+import check_pa.modules.certificate
+from conftest import read_xml
 
 
 class TestCertificates(object):
@@ -28,12 +28,12 @@ class TestCertificates(object):
 
     @responses.activate
     def test_certificate_warning(self):
-        check = check_pa.certificate.create_check(self)
+        check = check_pa.modules.certificate.create_check(self)
         obj = check.resources[0]
 
         from datetime import datetime
         now = datetime(2011, 10, 1)
-        with mock.patch('check_pa.certificate.get_now',
+        with mock.patch('check_pa.modules.certificate.get_now',
                         return_value=now):
             with responses.RequestsMock() as rsps:
                 rsps.add(responses.GET,
@@ -53,12 +53,12 @@ class TestCertificates(object):
 
     @responses.activate
     def test_certificate_ok(self):
-        check = check_pa.certificate.create_check(self)
+        check = check_pa.modules.certificate.create_check(self)
         obj = check.resources[0]
 
         from datetime import datetime
         now = datetime(2011, 9, 1)
-        with mock.patch('check_pa.certificate.get_now',
+        with mock.patch('check_pa.modules.certificate.get_now',
                         return_value=now):
             with responses.RequestsMock() as rsps:
                 rsps.add(responses.GET,

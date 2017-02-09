@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 from nagiosplugin import CheckError
 
+
 class XMLReader:
     """Extracts XML Data from Palo Alto REST API."""
 
@@ -49,20 +50,15 @@ class XMLReader:
 
 
 class Finder:
-    """
-
-    """
-
-    def __init__(self):
-        pass
 
     @staticmethod
     def find_item(item, s):
         """
+        Tries to find an item in a XML-structure.
 
-        :param item:
-        :param s:
-        :return:
+        :param item: a tag object
+        :param s: the search string
+        :return: text of the first child-element found
         """
         try:
             return item.find(s).text

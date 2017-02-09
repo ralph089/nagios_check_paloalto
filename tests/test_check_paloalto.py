@@ -5,13 +5,14 @@
 test_check_paloalto
 ----------------------------------
 
-Tests for `check_paloalto` module.
+Tests for `check_paloalto` modules.
 """
+
 import responses
 
-from check_pa.check_paloalto import parse_args, _diskspace, _certificates, \
-    _environmental, _load, _sessinfo, _thermal, _throughput, _useragent
-from tests.conftest import read_xml
+from check_pa.check_paloalto import parse_args
+from check_pa.modules import diskspace, certificate, load, environmental, sessioninfo, thermal, throughput, useragent
+from conftest import read_xml
 
 
 class TestCheckPaloAlto(object):
@@ -32,13 +33,11 @@ class TestCheckPaloAlto(object):
         args = parse_args(['-H', self.host, '-T', self.token, 'diskspace'])
         assert args.host == self.host
         assert args.token == self.token
-        assert args.func.__name__ == _diskspace.__name__
 
     def test_arg_useragent(self):
         args = parse_args(['-H', self.host, '-T', self.token, 'useragent'])
         assert args.host == self.host
         assert args.token == self.token
-        assert args.func.__name__ == _useragent.__name__
 
     def test_arg_certificates(self):
         args = parse_args(
@@ -46,7 +45,6 @@ class TestCheckPaloAlto(object):
              self.exclude, '-r', self.range])
         assert args.host == self.host
         assert args.token == self.token
-        assert args.func.__name__ == _certificates.__name__
 
     def test_arg_throughput(self):
         args = parse_args(
@@ -54,11 +52,10 @@ class TestCheckPaloAlto(object):
              self.interface])
         assert args.host == self.host
         assert args.token == self.token
-        assert args.func.__name__ == _throughput.__name__
 
     def test_certificates(self):
         f = 'certificates.xml'
-        check = _certificates(self)
+        check = certificate.create_check(self)
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      check.resources[0].xml_obj.build_request_url(),
@@ -71,7 +68,7 @@ class TestCheckPaloAlto(object):
 
     def test_diskspace(self):
         f = 'diskspace.xml'
-        check = _diskspace(self)
+        check = diskspace.create_check(self)
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      check.resources[0].xml_obj.build_request_url(),
@@ -84,7 +81,7 @@ class TestCheckPaloAlto(object):
 
     def test_load(self):
         f = 'load.xml'
-        check = _load(self)
+        check = load.create_check(self)
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      check.resources[0].xml_obj.build_request_url(),
@@ -97,7 +94,7 @@ class TestCheckPaloAlto(object):
 
     def test_sessinfo(self):
         f = 'mock_result.xml'
-        check = _sessinfo(self)
+        check = sessioninfo.create_check(self)
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      check.resources[0].xml_obj.build_request_url(),
@@ -110,7 +107,7 @@ class TestCheckPaloAlto(object):
 
     def test_environmental(self):
         f = 'environmentals_ok.xml'
-        check = _environmental(self)
+        check = environmental.create_check(self)
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      check.resources[0].xml_obj.build_request_url(),
@@ -123,7 +120,7 @@ class TestCheckPaloAlto(object):
 
     def test_thermal(self):
         f = 'mock_result.xml'
-        check = _thermal(self)
+        check = thermal.create_check(self)
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      check.resources[0].xml_obj.build_request_url(),
@@ -136,7 +133,7 @@ class TestCheckPaloAlto(object):
 
     def test_throughput(self):
         f = 'throughput1.xml'
-        check = _throughput(self)
+        check = throughput.create_check(self)
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      check.resources[0].xml_obj.build_request_url(),

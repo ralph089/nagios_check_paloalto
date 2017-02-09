@@ -5,15 +5,15 @@
 test_check_paloalto
 ----------------------------------
 
-Tests for `check_paloalto` module.
+Tests for `check_paloalto` modules.
 """
 
-import responses
 import pytest
+import responses
 from nagiosplugin.state import ServiceState
 
-import check_pa.thermal
-from tests.conftest import read_xml
+import check_pa.modules.thermal
+from conftest import read_xml
 
 
 class TestThermal(object):
@@ -29,7 +29,7 @@ class TestThermal(object):
         self.crit = 90
 
         f = 'thermal.xml'
-        check = check_pa.thermal.create_check(self)
+        check = check_pa.modules.thermal.create_check(self)
         obj = check.resources[0]
 
         with responses.RequestsMock() as rsps:
@@ -57,7 +57,7 @@ class TestThermal(object):
         self.crit = 30
 
         f = 'thermal.xml'
-        check = check_pa.thermal.create_check(self)
+        check = check_pa.modules.thermal.create_check(self)
         obj = check.resources[0]
 
         with responses.RequestsMock() as rsps:

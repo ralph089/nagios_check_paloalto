@@ -5,16 +5,16 @@
 test_check_paloalto
 ----------------------------------
 
-Tests for `check_paloalto` module.
+Tests for `check_paloalto` modules.
 """
 
-import responses
 import mock
 import pytest
+import responses
 from nagiosplugin.state import ServiceState
 
-import check_pa.throughput
-from tests.conftest import read_xml
+import check_pa.modules.throughput
+from conftest import read_xml
 
 
 class TestThroughput(object):
@@ -35,10 +35,10 @@ class TestThroughput(object):
         file2 = 'throughput2.xml'
         file3 = 'throughput3.xml'
 
-        check = check_pa.throughput.create_check(self)
+        check = check_pa.modules.throughput.create_check(self)
         objects = []
-        for ressource in check.resources:
-            objects.append(ressource)
+        for resource in check.resources:
+            objects.append(resource)
 
         with responses.RequestsMock() as rsps:
 
@@ -66,7 +66,7 @@ class TestThroughput(object):
             try:
                 # Resetting cookies
                 with Cookie(
-                        check_pa.throughput.Throughput.statefile) as cookie:
+                        check_pa.modules.throughput.statefile) as cookie:
                     cookie[interfaces[0] + 'i'] = 0
                     cookie[interfaces[0] + 'o'] = 0
                     cookie[interfaces[0] + 't'] = 1441324800
@@ -81,7 +81,7 @@ class TestThroughput(object):
                 now = 1441324801
                 xml_ibytes = 1000000
                 xml_obytes = 1000000
-                with mock.patch('check_pa.throughput.get_time',
+                with mock.patch('check_pa.modules.throughput.get_time',
                                 return_value=now):
                     with mock.patch('check_pa.xml_reader.Finder.find_item',
                                     side_effect=[xml_ibytes, xml_obytes,
@@ -91,7 +91,7 @@ class TestThroughput(object):
                             check.main(verbose=3)
             finally:
                 import os
-                os.remove(check_pa.throughput.Throughput.statefile)
+                os.remove(check_pa.modules.throughput.statefile)
 
             assert check.exitcode == 0
             assert check.state == ServiceState(code=0, text='ok')
@@ -109,7 +109,7 @@ class TestThroughput(object):
         for interface in self.interface.split(','):
             interfaces.append(interface)
 
-        check = check_pa.throughput.create_check(self)
+        check = check_pa.modules.throughput.create_check(self)
         objects = []
         for ressource in check.resources:
             objects.append(ressource)
@@ -128,7 +128,7 @@ class TestThroughput(object):
             # Resetting cookies
             try:
                 with Cookie(
-                        check_pa.throughput.Throughput.statefile) as cookie:
+                        check_pa.modules.throughput.statefile) as cookie:
                     cookie[interfaces[0] + 'i'] = 0
                     cookie[interfaces[0] + 'o'] = 0
                     cookie[interfaces[0] + 't'] = 1441324800
@@ -138,7 +138,7 @@ class TestThroughput(object):
 
                 xml_ibytes = 1000000
                 xml_obytes = 1000000
-                with mock.patch('check_pa.throughput.get_time',
+                with mock.patch('check_pa.modules.throughput.get_time',
                                 return_value=now):
                     with mock.patch('check_pa.xml_reader.Finder.find_item',
                                     side_effect=[xml_ibytes, xml_obytes]):
@@ -146,7 +146,7 @@ class TestThroughput(object):
                             check.main(verbose=3)
             finally:
                 import os
-                os.remove(check_pa.throughput.Throughput.statefile)
+                os.remove(check_pa.modules.throughput.statefile)
 
             assert check.exitcode == 0
             assert check.state == ServiceState(code=0, text='ok')
@@ -164,7 +164,7 @@ class TestThroughput(object):
         for interface in self.interface.split(','):
             interfaces.append(interface)
 
-        check = check_pa.throughput.create_check(self)
+        check = check_pa.modules.throughput.create_check(self)
         objects = []
         for ressource in check.resources:
             objects.append(ressource)
@@ -183,7 +183,7 @@ class TestThroughput(object):
             # Resetting cookies
             try:
                 with Cookie(
-                        check_pa.throughput.Throughput.statefile) as cookie:
+                        check_pa.modules.throughput.statefile) as cookie:
                     cookie[interfaces[0] + 'i'] = 10
                     cookie[interfaces[0] + 'o'] = 10
                     cookie[interfaces[0] + 't'] = 1441324800
@@ -193,7 +193,7 @@ class TestThroughput(object):
 
                 xml_ibytes = 9
                 xml_obytes = 11
-                with mock.patch('check_pa.throughput.get_time',
+                with mock.patch('check_pa.modules.throughput.get_time',
                                 return_value=now):
                     with mock.patch('check_pa.xml_reader.Finder.find_item',
                                     side_effect=[xml_ibytes, xml_obytes]):
@@ -201,7 +201,7 @@ class TestThroughput(object):
                             check.main(verbose=3)
             finally:
                 import os
-                os.remove(check_pa.throughput.Throughput.statefile)
+                os.remove(check_pa.modules.throughput.statefile)
 
             assert check.exitcode == 3
             assert check.state == ServiceState(code=3, text='unknown')
@@ -218,7 +218,7 @@ class TestThroughput(object):
         for interface in self.interface.split(','):
             interfaces.append(interface)
 
-        check = check_pa.throughput.create_check(self)
+        check = check_pa.modules.throughput.create_check(self)
         objects = []
         for ressource in check.resources:
             objects.append(ressource)
@@ -237,7 +237,7 @@ class TestThroughput(object):
             # Resetting cookies
             try:
                 with Cookie(
-                        check_pa.throughput.Throughput.statefile) as cookie:
+                        check_pa.modules.throughput.statefile) as cookie:
                     cookie[interfaces[0] + 'i'] = 10
                     cookie[interfaces[0] + 'o'] = 10
                     cookie[interfaces[0] + 't'] = 1441324800
@@ -247,7 +247,7 @@ class TestThroughput(object):
 
                 xml_ibytes = 11
                 xml_obytes = 9
-                with mock.patch('check_pa.throughput.get_time',
+                with mock.patch('check_pa.modules.throughput.get_time',
                                 return_value=now):
                     with mock.patch('check_pa.xml_reader.Finder.find_item',
                                     side_effect=[xml_ibytes, xml_obytes]):
@@ -255,7 +255,7 @@ class TestThroughput(object):
                             check.main(verbose=3)
             finally:
                 import os
-                os.remove(check_pa.throughput.Throughput.statefile)
+                os.remove(check_pa.modules.throughput.statefile)
 
             assert check.exitcode == 3
             assert check.state == ServiceState(code=3, text='unknown')
@@ -272,13 +272,12 @@ class TestThroughput(object):
         for interface in self.interface.split(','):
             interfaces.append(interface)
 
-        check = check_pa.throughput.create_check(self)
+        check = check_pa.modules.throughput.create_check(self)
         objects = []
-        for ressource in check.resources:
-            objects.append(ressource)
+        for resource in check.resources:
+            objects.append(resource)
 
         with responses.RequestsMock() as rsps:
-
             rsps.add(responses.GET,
                      objects[0].xml_obj.build_request_url(),
                      body=read_xml(file1),
@@ -291,7 +290,7 @@ class TestThroughput(object):
             # Resetting cookies
             try:
                 with Cookie(
-                        check_pa.throughput.Throughput.statefile) as cookie:
+                        check_pa.modules.throughput.statefile) as cookie:
                     cookie[interfaces[0] + 'i'] = 10
                     cookie[interfaces[0] + 'o'] = 10
                     cookie[interfaces[0] + 't'] = 1441324800
@@ -301,7 +300,7 @@ class TestThroughput(object):
 
                 xml_ibytes = 11
                 xml_obytes = 11
-                with mock.patch('check_pa.throughput.get_time',
+                with mock.patch('check_pa.modules.throughput.get_time',
                                 return_value=now):
                     with mock.patch('check_pa.xml_reader.Finder.find_item',
                                     side_effect=[xml_ibytes, xml_obytes]):
@@ -309,7 +308,7 @@ class TestThroughput(object):
                             check.main(verbose=3)
             finally:
                 import os
-                os.remove(check_pa.throughput.Throughput.statefile)
+                os.remove(check_pa.modules.throughput.statefile)
 
             assert check.exitcode == 3
             assert check.state == ServiceState(code=3, text='unknown')

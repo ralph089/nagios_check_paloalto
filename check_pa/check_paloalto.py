@@ -2,61 +2,18 @@
 import argparse
 import sys
 
+from modules import certificate, throughput, diskspace, useragent, environmental, sessioninfo, thermal, load
+
 import nagiosplugin
-import pkg_resources
-
-import check_pa.user_agent as useragent
-import check_pa.certificate as certificate
-import check_pa.diskspace as diskspace
-import check_pa.load as load
-import check_pa.environmental as environmental
-import check_pa.sessioninfo as sessioninfo
-import check_pa.throughput as throughput
-import check_pa.thermal as thermal
-
 
 @nagiosplugin.guarded
 def main():  # pragma: no cover
     args = parse_args(sys.argv[1:])
-    check = args.func(args)
-    check.main(verbose=args.verbose, timeout=args.timeout)
-
-
-def _diskspace(args):
-    return diskspace.create_check(args)
-
-
-def _certificates(args):
-    return certificate.create_check(args)
-
-
-def _load(args):
-    return load.create_check(args)
-
-
-def _environmental(args):
-    return environmental.create_check(args)
-
-
-def _sessinfo(args):
-    return sessioninfo.create_check(args)
-
-
-def _thermal(args):
-    return thermal.create_check(args)
-
-
-def _throughput(args):
     if args.reset:
-        if throughput.reset():
-            print("Success!")
-            exit()
+        throughput.reset()
     else:
-        return throughput.create_check(args)
-
-
-def _useragent(args):
-    return useragent.create_check(args)
+        check = args.func.create_check(args)
+        check.main(verbose=args.verbose, timeout=args.timeout)
 
 
 def parse_args(args):
@@ -75,6 +32,7 @@ def parse_args(args):
                        help='increase output verbosity (use up to 3 times)')
     debug.add_argument('-t', '--timeout', default=10,
                        help='abort check execution after so many seconds (use 0 for no timeout)')
+    debug.add_argument('--reset', action='store_true')
 
     info = parser.add_argument_group('Info')
     info.add_argument('--version', action='version',
@@ -96,7 +54,7 @@ def parse_args(args):
                                   help='Critical if disksace is greater. '
                                        '(default: %(default)s)')
 
-    parser_diskspace.set_defaults(func=_diskspace)
+    parser_diskspace.set_defaults(func=diskspace)
 
     # Sub-Parser for command 'certificates'.
     parser_certificates = subparsers.add_parser(
@@ -117,7 +75,7 @@ def parse_args(args):
         The general format is "[@][start:][end]
         (default: %(default)s)
         ''')
-    parser_certificates.set_defaults(func=_certificates)
+    parser_certificates.set_defaults(func=certificate)
 
     # Sub-Parser for command 'load'.
     parser_load = subparsers.add_parser(
@@ -131,7 +89,7 @@ def parse_args(args):
         '-c', '--crit',
         metavar='CRIT', type=int, default=95,
         help='Critical if CPU load is greater. (default: %(default)s)')
-    parser_load.set_defaults(func=_load)
+    parser_load.set_defaults(func=load)
 
     # Sub-Parser for command 'useragent'.
     parser_useragent = subparsers.add_parser(
@@ -145,13 +103,13 @@ def parse_args(args):
         '-c', '--crit',
         metavar='CRIT', type=int, default=240,
         help='Critical if agent is not responding for a given amount of seconds. (default: %(default)s)')
-    parser_useragent.set_defaults(func=_useragent)
+    parser_useragent.set_defaults(func=useragent)
 
     # Sub-Parser for command 'environmental'.
     parser_environmental = subparsers.add_parser(
         'environmental',
         help='check if an alarm is found.')
-    parser_environmental.set_defaults(func=_environmental)
+    parser_environmental.set_defaults(func=environmental)
 
     # Sub-Parser for command 'sessinfo'.
     parser_sessinfo = subparsers.add_parser(
@@ -165,7 +123,7 @@ def parse_args(args):
         '-c', '--crit',
         metavar='CRIT', type=int, default=50000,
         help='Critical if number of sessions is greater. (default: %(default)s)')
-    parser_sessinfo.set_defaults(func=_sessinfo)
+    parser_sessinfo.set_defaults(func=sessioninfo)
 
     # Sub-Parser for command 'thermal'.
     parser_thermal = subparsers.add_parser(
@@ -179,7 +137,7 @@ def parse_args(args):
         '-c', '--crit',
         metavar='CRIT', type=int, default=45,
         help='Critical if temperature is greater. (default: %(default)s)')
-    parser_thermal.set_defaults(func=_thermal)
+    parser_thermal.set_defaults(func=thermal)
 
     # Sub-Parser for command 'throughput'.
     parser_throughput = subparsers.add_parser(
@@ -193,7 +151,7 @@ def parse_args(args):
         required=True,
     )
     parser_throughput.add_argument('--reset', action='store_true')
-    parser_throughput.set_defaults(func=_throughput)
+    parser_throughput.set_defaults(func=throughput)
 
     return parser.parse_args(args)
 

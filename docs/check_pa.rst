@@ -1,16 +1,15 @@
 check_pa package
 ================
 
+Subpackages
+-----------
+
+.. toctree::
+
+    check_pa.modules
+
 Submodules
 ----------
-
-check_pa.certificate module
----------------------------
-
-.. automodule:: check_pa.certificate
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 check_pa.check_paloalto module
 ------------------------------
@@ -20,58 +19,10 @@ check_pa.check_paloalto module
     :undoc-members:
     :show-inheritance:
 
-check_pa.diskspace module
--------------------------
+check_pa.utils module
+---------------------
 
-.. automodule:: check_pa.diskspace
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-check_pa.environmental module
------------------------------
-
-.. automodule:: check_pa.environmental
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-check_pa.load module
---------------------
-
-.. automodule:: check_pa.load
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-check_pa.sessioninfo module
----------------------------
-
-.. automodule:: check_pa.sessioninfo
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-check_pa.thermal module
------------------------
-
-.. automodule:: check_pa.thermal
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-check_pa.throughput module
---------------------------
-
-.. automodule:: check_pa.throughput
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-check_pa.user_agent module
---------------------------
-
-.. automodule:: check_pa.user_agent
+.. automodule:: check_pa.utils
     :members:
     :undoc-members:
     :show-inheritance:

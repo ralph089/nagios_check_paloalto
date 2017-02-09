@@ -5,15 +5,15 @@
 test_check_paloalto
 ----------------------------------
 
-Tests for `check_paloalto` module.
+Tests for `check_paloalto` modules.
 """
 
-import responses
 import pytest
+import responses
 from nagiosplugin.state import ServiceState
 
-import check_pa.load
-from tests.conftest import read_xml
+import check_pa.modules.load
+from conftest import read_xml
 
 
 class TestLoad(object):
@@ -29,7 +29,7 @@ class TestLoad(object):
         self.crit = 90
 
         f = 'load.xml'
-        check = check_pa.load.create_check(self)
+        check = check_pa.modules.load.create_check(self)
         obj = check.resources[0]
 
         with responses.RequestsMock() as rsps:
@@ -54,7 +54,7 @@ class TestLoad(object):
         self.crit = 5
 
         f = 'load.xml'
-        check = check_pa.load.create_check(self)
+        check = check_pa.modules.load.create_check(self)
         obj = check.resources[0]
 
         with responses.RequestsMock() as rsps:

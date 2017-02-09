@@ -5,16 +5,16 @@
 test_check_paloalto
 ----------------------------------
 
-Tests for `check_paloalto` module.
+Tests for `check_paloalto` modules.
 """
 
-import responses
-import pytest
 import mock
+import pytest
+import responses
 from nagiosplugin.state import ServiceState
 
-import check_pa.sessioninfo
-from tests.conftest import read_xml
+import check_pa.modules.sessioninfo
+from conftest import read_xml
 
 
 class TestSessionInfo(object):
@@ -30,7 +30,7 @@ class TestSessionInfo(object):
         self.warn = 20000
         self.crit = 50000
 
-        check = check_pa.sessioninfo.create_check(self)
+        check = check_pa.modules.sessioninfo.create_check(self)
         obj = check.resources[0]
 
         with responses.RequestsMock() as rsps:
@@ -62,7 +62,7 @@ class TestSessionInfo(object):
         self.warn = 4000
         self.crit = 50000
 
-        check = check_pa.sessioninfo.create_check(self)
+        check = check_pa.modules.sessioninfo.create_check(self)
         obj = check.resources[0]
 
         with responses.RequestsMock() as rsps:
@@ -93,7 +93,7 @@ class TestSessionInfo(object):
         self.warn = 4000
         self.crit = 5000
 
-        check = check_pa.sessioninfo.create_check(self)
+        check = check_pa.modules.sessioninfo.create_check(self)
         obj = check.resources[0]
 
         with responses.RequestsMock() as rsps:

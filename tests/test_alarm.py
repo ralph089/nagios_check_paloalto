@@ -5,15 +5,15 @@
 test_check_paloalto
 ----------------------------------
 
-Tests for `check_paloalto` module.
+Tests for `check_paloalto` modules.
 """
 
-import responses
 import pytest
+import responses
 from nagiosplugin.state import ServiceState
 
-import check_pa.environmental
-from tests.conftest import read_xml
+import check_pa.modules.environmental
+from conftest import read_xml
 
 
 class TestAlarm(object):
@@ -26,7 +26,7 @@ class TestAlarm(object):
     @responses.activate
     def test_alarm(self):
         f = 'environmentals_ok.xml'
-        check = check_pa.environmental.create_check(self)
+        check = check_pa.modules.environmental.create_check(self)
         obj = check.resources[0]
 
         with responses.RequestsMock() as rsps:
@@ -46,7 +46,7 @@ class TestAlarm(object):
     @responses.activate
     def test_alarm_critical(self):
         f = 'environmentals_alarms.xml'
-        check = check_pa.environmental.create_check(self)
+        check = check_pa.modules.environmental.create_check(self)
         obj = check.resources[0]
 
         with responses.RequestsMock() as rsps:

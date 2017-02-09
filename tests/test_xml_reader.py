@@ -5,15 +5,16 @@
 test_check_paloalto
 ----------------------------------
 
-Tests for `check_paloalto` module.
+Tests for `check_paloalto` modules.
 """
+
 
 import responses
 import pytest
 from nagiosplugin import CheckError
 
 from check_pa.xml_reader import XMLReader, Finder
-from tests.conftest import read_xml
+from conftest import read_xml
 
 
 class TestCheckPaloAltoXML(object):
