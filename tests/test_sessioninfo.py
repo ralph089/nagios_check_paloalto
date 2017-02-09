@@ -14,7 +14,7 @@ import responses
 from nagiosplugin.state import ServiceState
 
 import check_pa.modules.sessioninfo
-from conftest import read_xml
+import conftest
 
 
 class TestSessionInfo(object):
@@ -36,7 +36,7 @@ class TestSessionInfo(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      obj.xml_obj.build_request_url(),
-                     body=read_xml(f),
+                     body=conftest.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -55,7 +55,6 @@ class TestSessionInfo(object):
             assert check.summary_str == 'Active sessions: 4480 ' \
                                         '/ Throughput: 24266kbps'
 
-
     @responses.activate
     def test_sessinfo_warning(self):
         f = 'mock_result.xml'
@@ -68,7 +67,7 @@ class TestSessionInfo(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      obj.xml_obj.build_request_url(),
-                     body=read_xml(f),
+                     body=conftest.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -86,7 +85,6 @@ class TestSessionInfo(object):
             assert check.state == ServiceState(code=1, text='warning')
             assert check.summary_str == 'session is 4480 (outside range 0:4000)'
 
-
     @responses.activate
     def test_sessinfo_warning2(self):
         f = 'mock_result.xml'
@@ -99,7 +97,7 @@ class TestSessionInfo(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      obj.xml_obj.build_request_url(),
-                     body=read_xml(f),
+                     body=conftest.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)

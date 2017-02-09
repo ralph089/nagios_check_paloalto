@@ -50,7 +50,6 @@ class XMLReader:
 
 
 class Finder:
-
     @staticmethod
     def find_item(item, s):
         """

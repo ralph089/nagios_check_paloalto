@@ -14,7 +14,7 @@ import responses
 from nagiosplugin.state import ServiceState
 
 import check_pa.modules.throughput
-from conftest import read_xml
+import conftest
 
 
 class TestThroughput(object):
@@ -44,19 +44,19 @@ class TestThroughput(object):
 
             rsps.add(responses.GET,
                      objects[0].xml_obj.build_request_url(),
-                     body=read_xml(file1),
+                     body=conftest.read_xml(file1),
                      status=200,
                      content_type='document',
                      match_querystring=True)
             rsps.add(responses.GET,
                      objects[1].xml_obj.build_request_url(),
-                     body=read_xml(file2),
+                     body=conftest.read_xml(file2),
                      status=200,
                      content_type='document',
                      match_querystring=True)
             rsps.add(responses.GET,
                      objects[2].xml_obj.build_request_url(),
-                     body=read_xml(file3),
+                     body=conftest.read_xml(file3),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -66,7 +66,7 @@ class TestThroughput(object):
             try:
                 # Resetting cookies
                 with Cookie(
-                        check_pa.modules.throughput.statefile) as cookie:
+                    check_pa.modules.throughput.statefile) as cookie:
                     cookie[interfaces[0] + 'i'] = 0
                     cookie[interfaces[0] + 'o'] = 0
                     cookie[interfaces[0] + 't'] = 1441324800
@@ -118,7 +118,7 @@ class TestThroughput(object):
 
             rsps.add(responses.GET,
                      objects[0].xml_obj.build_request_url(),
-                     body=read_xml(file1),
+                     body=conftest.read_xml(file1),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -128,7 +128,7 @@ class TestThroughput(object):
             # Resetting cookies
             try:
                 with Cookie(
-                        check_pa.modules.throughput.statefile) as cookie:
+                    check_pa.modules.throughput.statefile) as cookie:
                     cookie[interfaces[0] + 'i'] = 0
                     cookie[interfaces[0] + 'o'] = 0
                     cookie[interfaces[0] + 't'] = 1441324800
@@ -173,7 +173,7 @@ class TestThroughput(object):
 
             rsps.add(responses.GET,
                      objects[0].xml_obj.build_request_url(),
-                     body=read_xml(file1),
+                     body=conftest.read_xml(file1),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -183,7 +183,7 @@ class TestThroughput(object):
             # Resetting cookies
             try:
                 with Cookie(
-                        check_pa.modules.throughput.statefile) as cookie:
+                    check_pa.modules.throughput.statefile) as cookie:
                     cookie[interfaces[0] + 'i'] = 10
                     cookie[interfaces[0] + 'o'] = 10
                     cookie[interfaces[0] + 't'] = 1441324800
@@ -227,7 +227,7 @@ class TestThroughput(object):
 
             rsps.add(responses.GET,
                      objects[0].xml_obj.build_request_url(),
-                     body=read_xml(file1),
+                     body=conftest.read_xml(file1),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -237,7 +237,7 @@ class TestThroughput(object):
             # Resetting cookies
             try:
                 with Cookie(
-                        check_pa.modules.throughput.statefile) as cookie:
+                    check_pa.modules.throughput.statefile) as cookie:
                     cookie[interfaces[0] + 'i'] = 10
                     cookie[interfaces[0] + 'o'] = 10
                     cookie[interfaces[0] + 't'] = 1441324800
@@ -280,7 +280,7 @@ class TestThroughput(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      objects[0].xml_obj.build_request_url(),
-                     body=read_xml(file1),
+                     body=conftest.read_xml(file1),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -290,7 +290,7 @@ class TestThroughput(object):
             # Resetting cookies
             try:
                 with Cookie(
-                        check_pa.modules.throughput.statefile) as cookie:
+                    check_pa.modules.throughput.statefile) as cookie:
                     cookie[interfaces[0] + 'i'] = 10
                     cookie[interfaces[0] + 'o'] = 10
                     cookie[interfaces[0] + 't'] = 1441324800

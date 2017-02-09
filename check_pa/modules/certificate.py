@@ -18,7 +18,7 @@ def get_now():
     """
     return datetime.today()  # pragma: no cover
 
-import sys
+
 def create_check(args):
     """
 

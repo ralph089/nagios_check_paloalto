@@ -7,8 +7,8 @@ import time
 
 import nagiosplugin as np
 
-from check_pa.xml_reader import XMLReader, Finder
 from check_pa.utils import *
+from check_pa.xml_reader import XMLReader, Finder
 
 _log = logging.getLogger('nagiosplugin')
 statefile = os.path.join(tempfile.gettempdir(), 'throughput')
@@ -53,6 +53,7 @@ class Throughput(np.Resource):
     """
     A throughput resource.
     """
+
     def __init__(self, host, token, interface_name):
         self.host = host
         self.token = token
@@ -136,5 +137,3 @@ class NetworkSummary(np.Summary):
                 bit_out += result.metric.value
         return 'Input is %s Mb/s - Output is %s Mb/s' % (
             str(Utils.to_mega(bit_in)), str(Utils.to_mega(bit_out)))
-
-

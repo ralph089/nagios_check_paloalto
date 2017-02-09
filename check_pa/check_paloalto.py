@@ -2,9 +2,10 @@
 import argparse
 import sys
 
+import nagiosplugin
+
 from modules import certificate, throughput, diskspace, useragent, environmental, sessioninfo, thermal, load
 
-import nagiosplugin
 
 @nagiosplugin.guarded
 def main():  # pragma: no cover

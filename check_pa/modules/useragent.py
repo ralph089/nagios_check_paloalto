@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import nagiosplugin as np
 
+import nagiosplugin as np
 from nagiosplugin import CheckError
+
 from check_pa.xml_reader import XMLReader
 
 _log = logging.getLogger('nagiosplugin')

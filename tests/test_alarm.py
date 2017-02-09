@@ -12,8 +12,8 @@ import pytest
 import responses
 from nagiosplugin.state import ServiceState
 
+import conftest
 from check_pa.modules import environmental
-from conftest import read_xml
 
 
 class TestAlarm(object):
@@ -32,7 +32,7 @@ class TestAlarm(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      obj.xml_obj.build_request_url(),
-                     body=read_xml(f),
+                     body=conftest.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -52,7 +52,7 @@ class TestAlarm(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      obj.xml_obj.build_request_url(),
-                     body=read_xml(f),
+                     body=conftest.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)

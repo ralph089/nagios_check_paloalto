@@ -13,7 +13,7 @@ import responses
 from nagiosplugin.state import ServiceState
 
 import check_pa.modules.useragent
-from conftest import read_xml
+import conftest
 
 
 class TestUserAgent(object):
@@ -35,7 +35,7 @@ class TestUserAgent(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      obj.xml_obj.build_request_url(),
-                     body=read_xml(f),
+                     body=conftest.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -58,7 +58,7 @@ class TestUserAgent(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      obj.xml_obj.build_request_url(),
-                     body=read_xml(f),
+                     body=conftest.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -82,7 +82,7 @@ class TestUserAgent(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      obj.xml_obj.build_request_url(),
-                     body=read_xml(f),
+                     body=conftest.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -108,7 +108,7 @@ class TestUserAgent(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      obj.xml_obj.build_request_url(),
-                     body=read_xml(f),
+                     body=conftest.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -118,7 +118,6 @@ class TestUserAgent(object):
             assert check.exitcode == 2
             assert check.state == ServiceState(code=2, text='critical')
             assert check.summary_str == 'Agent: Agent1 - Name1(vsys: vsys1) Host: 10.10.10.10(10.10.10.10):5007 last heared: 61 seconds ago'
-
 
     @responses.activate
     def test_useragent_changed_format(self):
@@ -132,7 +131,7 @@ class TestUserAgent(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      obj.xml_obj.build_request_url(),
-                     body=read_xml(f),
+                     body=conftest.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -141,4 +140,3 @@ class TestUserAgent(object):
 
             assert check.exitcode == 3
             assert check.state == ServiceState(code=3, text='unknown')
-

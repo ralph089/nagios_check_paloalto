@@ -10,9 +10,9 @@ Tests for `check_paloalto` modules.
 
 import responses
 
+import conftest
 from check_pa.check_paloalto import parse_args
-from check_pa.modules import diskspace, certificate, load, environmental, sessioninfo, thermal, throughput, useragent
-from conftest import read_xml
+from check_pa.modules import diskspace, certificate, load, environmental, sessioninfo, thermal, throughput
 
 
 class TestCheckPaloAlto(object):
@@ -59,7 +59,7 @@ class TestCheckPaloAlto(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      check.resources[0].xml_obj.build_request_url(),
-                     body=read_xml(f),
+                     body=conftest.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -72,7 +72,7 @@ class TestCheckPaloAlto(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      check.resources[0].xml_obj.build_request_url(),
-                     body=read_xml(f),
+                     body=conftest.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -85,7 +85,7 @@ class TestCheckPaloAlto(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      check.resources[0].xml_obj.build_request_url(),
-                     body=read_xml(f),
+                     body=conftest.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -98,7 +98,7 @@ class TestCheckPaloAlto(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      check.resources[0].xml_obj.build_request_url(),
-                     body=read_xml(f),
+                     body=conftest.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -111,7 +111,7 @@ class TestCheckPaloAlto(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      check.resources[0].xml_obj.build_request_url(),
-                     body=read_xml(f),
+                     body=conftest.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -124,7 +124,7 @@ class TestCheckPaloAlto(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      check.resources[0].xml_obj.build_request_url(),
-                     body=read_xml(f),
+                     body=conftest.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -137,7 +137,7 @@ class TestCheckPaloAlto(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      check.resources[0].xml_obj.build_request_url(),
-                     body=read_xml(f),
+                     body=conftest.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)

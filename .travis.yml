@@ -1,16 +1,16 @@
 language: python
+python: 3.5
 
-python:
-  - "3.5"
-  - "3.4"
-  - "3.3"
-  - "2.7"
-  - "pypy"
+env:
+  - TOXENV=py35
+  - TOXENV=py34
+  - TOXENV=py33
+  - TOXENV=py27
+  - TOXENV=pypy
 
-install:
-  - pip install -r requirements.txt
+install: pip install -U tox
 
-script:
-  - py.test --cov=check_pa tests
+script: tox -e ${TOXENV}
+
 after_success:
-  - coveralls
+    - coveralls
