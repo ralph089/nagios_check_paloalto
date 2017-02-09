@@ -88,6 +88,13 @@ Ready to contribute? Here's how to set up `nagios_check_paloalto` for local deve
 
 7. Submit a pull request through the GitHub website.
 
+Virtual development environment
+-------------------------------
+
+You can use Vagrant to start a virtual development environment, where all the necessary dependencies are already installed.
+
+Please have a look at the Vagrantfile.
+
 Pull Request Guidelines
 -----------------------
 
