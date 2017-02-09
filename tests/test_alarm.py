@@ -12,7 +12,7 @@ import pytest
 import responses
 from nagiosplugin.state import ServiceState
 
-import check_pa.modules.environmental
+from check_pa.modules import environmental
 from conftest import read_xml
 
 
@@ -26,7 +26,7 @@ class TestAlarm(object):
     @responses.activate
     def test_alarm(self):
         f = 'environmentals_ok.xml'
-        check = check_pa.modules.environmental.create_check(self)
+        check = environmental.create_check(self)
         obj = check.resources[0]
 
         with responses.RequestsMock() as rsps:
@@ -46,7 +46,7 @@ class TestAlarm(object):
     @responses.activate
     def test_alarm_critical(self):
         f = 'environmentals_alarms.xml'
-        check = check_pa.modules.environmental.create_check(self)
+        check = environmental.create_check(self)
         obj = check.resources[0]
 
         with responses.RequestsMock() as rsps:
