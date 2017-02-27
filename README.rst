@@ -11,8 +11,8 @@ Tested on:
 
 .. image:: https://travis-ci.org/ralph-hm/nagios_check_paloalto.svg?branch=master
     :target: https://travis-ci.org/ralph-hm/nagios_check_paloalto?branch=master
-
-.. image:: https://coveralls.io/repos/ralph-hm/nagios_check_paloalto/badge.svg?branch=master&service=github
+    
+.. image:: https://coveralls.io/repos/github/ralph-hm/nagios_check_paloalto/badge.svg?branch=master
     :target: https://coveralls.io/github/ralph-hm/nagios_check_paloalto?branch=master
 
 .. image:: https://badge.fury.io/py/check_paloalto.svg
