@@ -2,6 +2,13 @@
 
 History
 -------
+0.3 (2017-27-02)
+------------------
+
+* Support for Python 3.5 added
+* Minor code improvements
+* Changed the the unit of measurement (UOM) according to official Nagios-Documentation (thanks to Ios77)
+
 0.1.6 (2016-06-05)
 ------------------
 

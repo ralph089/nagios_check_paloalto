@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 import argparse
 import sys
-
 import nagiosplugin
 
-from modules import certificate, throughput, diskspace, useragent, environmental, sessioninfo, thermal, load
+sys.path.append('modules')
+
+from check_pa.modules import certificate, throughput, diskspace, useragent, environmental, sessioninfo, thermal, load
 
 
 @nagiosplugin.guarded
@@ -33,7 +34,7 @@ def parse_args(args):
                        help='increase output verbosity (use up to 3 times)')
     debug.add_argument('-t', '--timeout', default=10,
                        help='abort check execution after so many seconds (use 0 for no timeout)')
-    debug.add_argument('--reset', action='store_true')
+    debug.add_argument('--reset', action='store_true', help='Deletes the cookie file for the throughput check.')
 
     info = parser.add_argument_group('Info')
     info.add_argument('--version', action='version',
@@ -151,7 +152,6 @@ def parse_args(args):
         nargs='?',
         required=True,
     )
-    parser_throughput.add_argument('--reset', action='store_true')
     parser_throughput.set_defaults(func=throughput)
 
     return parser.parse_args(args)

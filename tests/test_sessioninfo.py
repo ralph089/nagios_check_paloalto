@@ -53,7 +53,7 @@ class TestSessionInfo(object):
             assert check.exitcode == 0
             assert check.state == ServiceState(code=0, text='ok')
             assert check.summary_str == 'Active sessions: 4480 ' \
-                                        '/ Throughput: 24266kbps'
+                                        '/ Throughput (kbps): 24266'
 
     @responses.activate
     def test_sessinfo_warning(self):

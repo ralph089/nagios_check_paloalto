@@ -21,8 +21,9 @@ def get_now():
 
 def create_check(args):
     """
+    Creates and configures a check for the certificate command.
 
-    :return:
+    :return: the throughput check.
     """
     return np.Check(
         Certificate(args.host, args.token, args.exclude),

@@ -11,8 +11,9 @@ _log = logging.getLogger('nagiosplugin')
 
 def create_check(args):
     """
+    Creates and configures a check for the environmental command.
 
-    :return:
+    :return: the environmental check.
     """
     return np.Check(
         Environmental(args.host, args.token),
@@ -49,14 +50,10 @@ class Environmental(np.Resource):
 class EnvironmentalContext(np.Context):
     def __init__(self, name, fmt_metric='{name} is {valueunit}',
                  result_cls=np.Result):
-        """
-        """
         super(EnvironmentalContext, self).__init__(name, fmt_metric,
                                                    result_cls)
 
     def evaluate(self, metric, resource):
-        """
-        """
         if not metric.value:
             return self.result_cls(np.Ok, None, metric)
         else:

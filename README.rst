@@ -7,7 +7,7 @@ It is written in Python and based on the PA REST API.
 Tested on:
 
 - PA-500 v6.0.1 - v6.0.9
-- PA-3050 v6.0.9 - 7.0.0
+- PA-3050 v6.0.9 - 7.0.9
 
 .. image:: https://travis-ci.org/ralph-hm/nagios_check_paloalto.svg?branch=master
     :target: https://travis-ci.org/ralph-hm/nagios_check_paloalto?branch=master
@@ -41,7 +41,8 @@ Usage
 -----
 Command-line usage::
 
-    usage: check_paloalto [-h] -H HOST -T TOKEN [-v] [-t TIMEOUT] [--version]
+    usage: check_paloalto [-h] -H HOST -T TOKEN [-v] [-t TIMEOUT] [--reset]
+                      [--version]
                       {diskspace,certificates,load,useragent,environmental,sessinfo,thermal,throughput}
                       ...
 
@@ -70,8 +71,8 @@ Command-line usage::
       -t TIMEOUT, --timeout TIMEOUT
                             abort check execution after so many seconds (use 0 for
                             no timeout)
+      --reset               Deletes the cookie file for the throughput check.
 
     Info:
       --version             show program's version number and exit
-
 

@@ -11,8 +11,9 @@ _log = logging.getLogger('nagiosplugin')
 
 def create_check(args):
     """
+    Creates and configures a check for the load command.
 
-    :return:
+    :return: the load check.
     """
     return np.Check(
         Load(args.host, args.token),

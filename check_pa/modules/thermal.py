@@ -11,8 +11,9 @@ _log = logging.getLogger('nagiosplugin')
 
 def create_check(args):
     """
+    Creates and configures a check for the thermal command.
 
-    :return:
+    :return: the thermal check.
     """
     return np.Check(
         Thermal(args.host, args.token),

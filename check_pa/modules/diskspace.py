@@ -12,8 +12,9 @@ _log = logging.getLogger('nagiosplugin')
 
 def create_check(args):
     """
+    Creates and configures a check for the diskspace command.
 
-    :return:
+    :return: the diskspace check.
     """
     return np.Check(
         DiskSpace(args.host, args.token),
@@ -43,8 +44,7 @@ class DiskSpace(np.Resource):
         for hdd in available_hdds:
             sda = re.findall('(sda\d)', hdd)[0]
             percent = int(re.findall('([0-9]+%)', hdd)[0].replace("%", ""))
-            yield np.Metric(sda, percent, min=0, max=100,
-                            context='diskspace')
+            yield np.Metric(sda, percent, '%', context='diskspace')
 
 
 class DiskSpaceSummary(np.Summary):
@@ -60,7 +60,7 @@ class DiskSpaceSummary(np.Summary):
         """
         l = []
         for sda in results.results:
-            s = '%s: %s%% used space' % (sda.metric.name, sda.metric.value)
+            s = '%s: %s%%' % (sda.metric.name, sda.metric.value)
             l.append(s)
         _log.debug('HDD count: %d' % len(l))
         output = ", ".join(l)
@@ -73,4 +73,4 @@ class DiskSpaceSummary(np.Summary):
         :param results: Results container
         :return: status line
         """
-        return 'Used disk space: %s' % (str(results.first_significant))
+        return '%s' % (str(results.first_significant))

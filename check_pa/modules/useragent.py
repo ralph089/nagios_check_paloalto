@@ -12,8 +12,9 @@ _log = logging.getLogger('nagiosplugin')
 
 def create_check(args):
     """
+    Creates and configures a check for the useragent command.
 
-    :return:
+    :return: the useragent check.
     """
     return np.Check(
         UserAgent(args.host, args.token),
@@ -53,6 +54,7 @@ class UserAgent(np.Resource):
             _log.info('Checking %s ', name)
             _log.info('Found status %s', status)
             _log.info('Last heared: %i seconds ago', last_heared)
+
             yield np.Metric(name, status, context='agent_connected')
             yield np.Metric(name, last_heared, context='agent_last_heared')
 

@@ -44,10 +44,10 @@ class TestDiskspace(object):
 
             assert check.exitcode == 0
             assert check.state == ServiceState(code=0, text='ok')
-            assert check.summary_str == 'sda2: 57% used space, ' \
-                                        'sda5: 43% used space, ' \
-                                        'sda6: 30% used space, ' \
-                                        'sda8: 47% used space'
+            assert check.summary_str == 'sda2: 57%, ' \
+                                        'sda5: 43%, ' \
+                                        'sda6: 30%, ' \
+                                        'sda8: 47%'
 
     @responses.activate
     def test_diskspace_warning(self):
@@ -70,5 +70,4 @@ class TestDiskspace(object):
 
             assert check.exitcode == 1
             assert check.state == ServiceState(code=1, text='warning')
-            assert check.summary_str == 'Used disk space: ' \
-                                        'sda2 is 57 (outside range 0:50)'
+            assert check.summary_str == 'sda2 is 57% (outside range 0:50)'

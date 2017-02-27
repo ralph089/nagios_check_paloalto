@@ -11,8 +11,9 @@ _log = logging.getLogger('nagiosplugin')
 
 def create_check(args):
     """
+    Creates and configures a check for the sessioninfo command.
 
-    :return:
+    :return: the sessioninfo check.
     """
     return np.Check(
         SessInfo(args.host, args.token),
@@ -32,7 +33,7 @@ class SessInfo(np.Resource):
         """
         Querys the REST-API and create session info metrics.
 
-        :return: a sessinfo metric.
+        :return: a sessioninfo metric.
         """
         _log.info('Reading XML from: %s', self.xml_obj.build_request_url())
         soup = self.xml_obj.read()
@@ -42,11 +43,11 @@ class SessInfo(np.Resource):
         throughput = int(Finder.find_item(result, 'kbps'))
 
         return [np.Metric('session', actsess, min=0, max=maxsess, context='session'),
-                np.Metric('throughput', throughput, 'kbps', min=0, context='throughput')]
+                np.Metric('throughput_kbps', throughput, min=0, context='throughput')]
 
 
 class SessSummary(np.Summary):
     def ok(self, results):
         return 'Active sessions: ' + str(
-            results['session'].metric) + ' / Throughput: ' + str(
-            results['throughput'].metric)
+            results['session'].metric) + ' / Throughput (kbps): ' + str(
+            results['throughput_kbps'].metric)

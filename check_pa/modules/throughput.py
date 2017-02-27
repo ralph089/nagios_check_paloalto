@@ -86,16 +86,6 @@ class Throughput(np.Resource):
             old_outbytes = cookie.get(self.interface_name + 'o', api_outbytes)
             old_time = cookie.get(self.interface_name + 't', current_time)
 
-            if float(api_inbytes) < float(old_inbytes) or not api_inbytes:
-                raise np.CheckError('Couldn\'t get a valid input value!\n'
-                                    '\n'
-                                    'If you recently upgraded the PA firmware or restarted the PA, '
-                                    'please read the documentation.')
-            if float(api_outbytes) < float(old_outbytes) or not api_outbytes:
-                raise np.CheckError('Couldn\'t get a valid output value!\n\n'
-                                    'If you recently upgraded the PA firmware or restarted the PA, '
-                                    'please read the documentation.')
-
             cookie[self.interface_name + 'i'] = api_inbytes
             cookie[self.interface_name + 'o'] = api_outbytes
             cookie[self.interface_name + 't'] = current_time
@@ -114,9 +104,9 @@ class Throughput(np.Resource):
                 'please execute it again!')
 
         return [
-            np.Metric('inBytes' + str(self.interface_name), diff_inbit, 'b',
+            np.Metric('inBytes' + str(self.interface_name), diff_inbit, 'c',
                       min=0),
-            np.Metric('outBytes' + str(self.interface_name), diff_outbit, 'b',
+            np.Metric('outBytes' + str(self.interface_name), diff_outbit, 'c',
                       min=0)]
 
 
