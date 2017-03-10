@@ -2,6 +2,13 @@
 
 History
 -------
+0.3.1 (2017-10-03)
+------------------
+
+* Improvement: It is no longer necessary to reset the internal cookie when upgrading PA.
+* Renamed performance data label for throughput command.
+* Removed the the unit of measurement (UOM) for throughput command
+
 0.3 (2017-27-02)
 ------------------
 

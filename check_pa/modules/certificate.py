@@ -61,10 +61,10 @@ class Certificate(np.Resource):
         certificates = soup.find_all('entry')
 
         for certificate in certificates:
-            notvalidafter = Finder.find_item(certificate,
+            not_valid_after = Finder.find_item(certificate,
                                              'not-valid-after').replace(
                 "GMT", "").strip()
-            date_object = datetime.strptime(notvalidafter, '%b %d %H:%M:%S %Y')
+            date_object = datetime.strptime(not_valid_after, '%b %d %H:%M:%S %Y')
             difference = date_object - get_now()
             _log.debug('Certificate %s difference: %s days' % (
                 certificate.get('name'), difference.days))
@@ -82,14 +82,6 @@ class CertificateContext(np.Context):
     def __init__(self, name, r,
                  fmt_metric='{name} expires in {valueunit}',
                  result_cls=np.Result):
-        """
-
-        :param name:
-        :param r:
-        :param fmt_metric:
-        :param result_cls:
-        :return:
-        """
         super(CertificateContext, self).__init__(name, fmt_metric, result_cls)
         self.r = np.Range(r)
 

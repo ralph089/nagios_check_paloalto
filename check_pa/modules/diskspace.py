@@ -51,13 +51,6 @@ class DiskSpaceSummary(np.Summary):
     """Create status line from results."""
 
     def ok(self, results):
-        """
-        Prints a more informative output, e. g. sda2: 55% free space,
-        sda5: 43% free space, sda6: 30% free space, sda8: 46% free space
-
-        :param results: Results container
-        :return: status line
-        """
         l = []
         for sda in results.results:
             s = '%s: %s%%' % (sda.metric.name, sda.metric.value)
@@ -67,10 +60,4 @@ class DiskSpaceSummary(np.Summary):
         return str(output)
 
     def problem(self, results):
-        """
-        Prints a more informative output
-
-        :param results: Results container
-        :return: status line
-        """
         return '%s' % (str(results.first_significant))

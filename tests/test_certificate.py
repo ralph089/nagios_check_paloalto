@@ -14,7 +14,7 @@ import responses
 from nagiosplugin.state import ServiceState
 
 import check_pa.modules.certificate
-import conftest
+import utils
 
 
 class TestCertificates(object):
@@ -38,7 +38,7 @@ class TestCertificates(object):
             with responses.RequestsMock() as rsps:
                 rsps.add(responses.GET,
                          obj.xml_obj.build_request_url(),
-                         body=conftest.read_xml('certificates.xml'),
+                         body=utils.read_xml('certificates.xml'),
                          status=200,
                          content_type='document',
                          match_querystring=True)
@@ -63,7 +63,7 @@ class TestCertificates(object):
             with responses.RequestsMock() as rsps:
                 rsps.add(responses.GET,
                          obj.xml_obj.build_request_url(),
-                         body=conftest.read_xml('certificates.xml'),
+                         body=utils.read_xml('certificates.xml'),
                          status=200,
                          content_type='document',
                          match_querystring=True)

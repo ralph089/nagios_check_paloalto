@@ -4,7 +4,8 @@ Usage
 
 Command-line usage::
 
-    usage: check_paloalto [-h] -H HOST -T TOKEN [-v] [-t TIMEOUT] [--version]
+    usage: check_paloalto [-h] -H HOST -T TOKEN [-v] [-t TIMEOUT] [--reset]
+                      [--version]
                       {diskspace,certificates,load,useragent,environmental,sessinfo,thermal,throughput}
                       ...
 
@@ -33,6 +34,7 @@ Command-line usage::
       -t TIMEOUT, --timeout TIMEOUT
                             abort check execution after so many seconds (use 0 for
                             no timeout)
+      --reset               Deletes the cookie file for the throughput check.
 
     Info:
       --version             show program's version number and exit
@@ -54,7 +56,7 @@ usage::
 example::
 
     $ check_paloalto -H HOST -T TOKEN diskspace
-    $ DISKSPACE OK - sda3: 46% used space, sda5: 41% used space, sda6: 38% used space, sda8: 55% used space | sda3=46;85;95;0;100 sda5=41;85;95;0;100 sda6=38;85;95;0;100 sda8=55;85;95;0;100
+    $ DISKSPACE OK - sda2: 70%, sda5: 51%, sda6: 58%, sda8: 78% | sda2=70%;85;95 sda5=51%;85;95 sda6=58%;85;95 sda8=78%;85;95
 
 certificates
 ------------
@@ -119,7 +121,7 @@ usage::
 example::
 
     $ check_paloalto -H HOST -T TOKEN sessinfo
-    $ SESSINFO OK - Max possible sessions: 123456 / Active sessions: 6000 / Throughput: 2000kbps | actsess=6000;;;0 maxsess=123456;;;0 throughput=2000kbps;;;0
+    $ SESSINFO OK - Active sessions: 6582 / Throughput (kbps): 24304 | session=6582;20000;50000;0;262142 throughput_kbps=24304;;;0
 
 
 thermal
@@ -152,10 +154,10 @@ usage::
 example::
 
     $ check_paloalto -H HOST -T TOKEN throughput -i ethernet1/1
-    $ THROUGHPUT OK - Input is 3.73 Mb/s - Output is 3.46 Mb/s | 'inBytesethernet1/1'=3731660.0b;;;0 'outBytesethernet1/1'=3461314.67b;;;0
+    $ THROUGHPUT OK - Input is 5.74 Mb/s - Output is 11.81 Mb/s | 'in_bps_ethernet1/1'=5743432.0;;;0 'out_bps_ethernet1/1'=11807524.0;;;0
 
     $ check_paloalto -H HOST -T TOKEN throughput -i ethernet1/1,ethernet1/2
-    $ THROUGHPUT OK - Input is 10.53 Mb/s - Output is 13.94 Mb/s | 'inBytesethernet1/1'=2501484.0b;;;0 'inBytesethernet1/2'=8025331.2b;;;0 'outBytesethernet1/1'=11376622.67b;;;0 'outBytesethernet1/2'=2561513.6b;;;0
+    $ THROUGHPUT OK - Input is 44.12 Mb/s - Output is 24.59 Mb/s | 'in_bps_ethernet1/1'=5895616.0;;;0 'in_bps_ethernet1/2'=38225768.0;;;0 'out_bps_ethernet1/1'=15926620.0;;;0 'out_bps_ethernet1/2'=8661100.0;;;0
 
 To get all available names of your interfaces, please have a look at
 https://www.paloaltonetworks.com/documentation/61/pan-os/pan-os/getting-started/configure-interfaces-and-zones.html

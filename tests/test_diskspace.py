@@ -13,7 +13,7 @@ import responses
 from nagiosplugin.state import ServiceState
 
 import check_pa.modules.diskspace
-import conftest
+import utils
 
 
 class TestDiskspace(object):
@@ -35,7 +35,7 @@ class TestDiskspace(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      obj.xml_obj.build_request_url(),
-                     body=conftest.read_xml(f),
+                     body=utils.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)
@@ -61,7 +61,7 @@ class TestDiskspace(object):
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET,
                      obj.xml_obj.build_request_url(),
-                     body=conftest.read_xml(f),
+                     body=utils.read_xml(f),
                      status=200,
                      content_type='document',
                      match_querystring=True)

@@ -12,7 +12,7 @@ import pytest
 import responses
 from nagiosplugin import CheckError
 
-import conftest
+import utils
 from check_pa.xml_reader import XMLReader, Finder
 
 
@@ -24,7 +24,7 @@ class TestCheckPaloAltoXML(object):
 
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET, xml_reader.build_request_url(),
-                     body=conftest.read_xml(f), status=200,
+                     body=utils.read_xml(f), status=200,
                      content_type='document',
                      match_querystring=True)
             xml_response = xml_reader.read()
@@ -38,7 +38,7 @@ class TestCheckPaloAltoXML(object):
 
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET, xml_reader.build_request_url(),
-                     body=conftest.read_xml(f), status=404,
+                     body=utils.read_xml(f), status=404,
                      content_type='document',
                      match_querystring=True)
             with pytest.raises(CheckError):
@@ -51,7 +51,7 @@ class TestCheckPaloAltoXML(object):
 
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET, xml_reader.build_request_url(),
-                     body=conftest.read_xml(f), status=200,
+                     body=utils.read_xml(f), status=200,
                      content_type='document',
                      match_querystring=True)
             with pytest.raises(CheckError):
@@ -64,7 +64,7 @@ class TestCheckPaloAltoXML(object):
 
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET, xml_reader.build_request_url(),
-                     body=conftest.read_xml(f), status=200,
+                     body=utils.read_xml(f), status=200,
                      content_type='document',
                      match_querystring=True)
             xml_response = xml_reader.read()
@@ -78,7 +78,7 @@ class TestCheckPaloAltoXML(object):
 
         with responses.RequestsMock() as rsps:
             rsps.add(responses.GET, xml_reader.build_request_url(),
-                     body=conftest.read_xml(f), status=200,
+                     body=utils.read_xml(f), status=200,
                      content_type='document',
                      match_querystring=True)
             xml_response = xml_reader.read()
