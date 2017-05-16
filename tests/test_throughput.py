@@ -65,15 +65,15 @@ class TestThroughput(object):
 
             # Resetting cookies
             with Cookie(statefile) as cookie:
-                cookie[interfaces[0] + 'i'] = 0
-                cookie[interfaces[0] + 'o'] = 0
-                cookie[interfaces[0] + 't'] = 1441324800
-                cookie[interfaces[1] + 'i'] = 0
-                cookie[interfaces[1] + 'o'] = 0
-                cookie[interfaces[1] + 't'] = 1441324800
-                cookie[interfaces[2] + 'i'] = 0
-                cookie[interfaces[2] + 'o'] = 0
-                cookie[interfaces[2] + 't'] = 1441324800
+                cookie[self.host + interfaces[0] + 'i'] = 0
+                cookie[self.host + interfaces[0] + 'o'] = 0
+                cookie[self.host + interfaces[0] + 't'] = 1441324800
+                cookie[self.host + interfaces[1] + 'i'] = 0
+                cookie[self.host + interfaces[1] + 'o'] = 0
+                cookie[self.host + interfaces[1] + 't'] = 1441324800
+                cookie[self.host + interfaces[2] + 'i'] = 0
+                cookie[self.host + interfaces[2] + 'o'] = 0
+                cookie[self.host + interfaces[2] + 't'] = 1441324800
 
             # Check will be executed exactly one second later
             now = 1441324801
@@ -107,8 +107,8 @@ class TestThroughput(object):
 
         check = check_pa.modules.throughput.create_check(self)
         objects = []
-        for ressource in check.resources:
-            objects.append(ressource)
+        for res in check.resources:
+            objects.append(res)
 
         with responses.RequestsMock() as rsps:
 
@@ -122,9 +122,9 @@ class TestThroughput(object):
             from nagiosplugin import Cookie
 
             with Cookie(statefile) as cookie:
-                cookie[interfaces[0] + 'i'] = 0
-                cookie[interfaces[0] + 'o'] = 0
-                cookie[interfaces[0] + 't'] = 1441324800
+                cookie[self.host + interfaces[0] + 'i'] = 0
+                cookie[self.host + interfaces[0] + 'o'] = 0
+                cookie[self.host + interfaces[0] + 't'] = 1441324800
 
             # Check will be executed exactly ten seconds later
             now = 1441324810
@@ -143,6 +143,76 @@ class TestThroughput(object):
             assert check.summary_str == 'Input is 0.8 Mb/s - Output is 0.8 ' \
                                         'Mb/s'
 
+    def check_pa(self, time, ibytes, obytes, filename):
+        objects = []
+        file1 = filename
+
+        check = check_pa.modules.throughput.create_check(self)
+
+        for res in check.resources:
+            objects.append(res)
+
+        with responses.RequestsMock() as rsps:
+            rsps.add(responses.GET,
+                     objects[0].xml_obj.build_request_url(),
+                     body=utils.read_xml(file1),
+                     status=200,
+                     content_type='document',
+                     match_querystring=True)
+
+            with mock.patch('check_pa.modules.throughput.get_time',
+                            return_value=time):
+                with mock.patch('check_pa.xml_reader.Finder.find_item',
+                                side_effect=[ibytes, obytes]):
+                    with pytest.raises(SystemExit):
+                        check.main(verbose=3)
+
+        return check
+
+    @responses.activate
+    def test_with_different_ips(self, statefile):
+
+        pa_1 = self.__class__()
+        pa_1.host = "192.168.0.1"
+        pa_1.interface = "ethernet1/1"
+
+        pa_2 = self.__class__()
+        pa_2.host = "192.168.0.2"
+        pa_2.interface = "ethernet1/1"
+
+        from nagiosplugin import Cookie
+
+        with Cookie(statefile) as cookie:
+            cookie[pa_1.host + pa_1.interface + 'i'] = 0
+            cookie[pa_1.host + pa_1.interface + 'o'] = 0
+            cookie[pa_1.host + pa_1.interface + 't'] = 1441324800
+
+        check = pa_1.check_pa(1441324800, 10, 10, "throughput1.xml")
+
+        assert check.exitcode == 3
+        assert check.state == ServiceState(code=3, text='unknown')
+        assert check.summary_str == 'Difference between old timestamp and new timestamp is less or equal 0: If it is the first time you run the script, please execute it again!'
+
+        check = pa_2.check_pa(1441324810, 110, 110, "throughput1.xml")
+
+        assert check.exitcode == 3
+        assert check.state == ServiceState(code=3, text='unknown')
+        assert check.summary_str == 'Difference between old timestamp and new timestamp is less or equal 0: If it is the first time you run the script, please execute it again!'
+
+        check = pa_1.check_pa(1441324801, 1000000, 1000000, "throughput1.xml")
+        assert check.exitcode == 0
+        assert check.state == ServiceState(code=0, text='ok')
+        # 1000000 Byte = 1 MByte = 8 Mbit in 1 second = 8.0 Mb/s
+        assert check.summary_str == 'Input is 8.0 Mb/s - Output is 8.0 ' \
+                                    'Mb/s'
+
+        check = pa_2.check_pa(1441324811, 1000000, 1000000, "throughput1.xml")
+        assert check.exitcode == 0
+        assert check.state == ServiceState(code=0, text='ok')
+        # 1000000 Byte = 1 MByte = 8 Mbit in 1 second = 8.0 Mb/s
+        assert check.summary_str == 'Input is 8.0 Mb/s - Output is 8.0 ' \
+                                    'Mb/s'
+
     @responses.activate
     def test_new_input_less_than_old(self, statefile):
         file1 = 'throughput1.xml'
@@ -154,8 +224,8 @@ class TestThroughput(object):
 
         check = check_pa.modules.throughput.create_check(self)
         objects = []
-        for ressource in check.resources:
-            objects.append(ressource)
+        for res in check.resources:
+            objects.append(res)
 
         with responses.RequestsMock() as rsps:
 
@@ -169,9 +239,9 @@ class TestThroughput(object):
             from nagiosplugin import Cookie
 
             with Cookie(statefile) as cookie:
-                cookie[interfaces[0] + 'i'] = 10
-                cookie[interfaces[0] + 'o'] = 10
-                cookie[interfaces[0] + 't'] = 1441324800
+                cookie[self.host + interfaces[0] + 'i'] = 10
+                cookie[self.host + interfaces[0] + 'o'] = 10
+                cookie[self.host + interfaces[0] + 't'] = 1441324800
 
             # Check will be executed exactly ten seconds later
             now = 1441324810
@@ -200,8 +270,8 @@ class TestThroughput(object):
 
         check = check_pa.modules.throughput.create_check(self)
         objects = []
-        for ressource in check.resources:
-            objects.append(ressource)
+        for res in check.resources:
+            objects.append(res)
 
         with responses.RequestsMock() as rsps:
 
@@ -215,9 +285,9 @@ class TestThroughput(object):
             from nagiosplugin import Cookie
 
             with Cookie(statefile) as cookie:
-                cookie[interfaces[0] + 'i'] = 10
-                cookie[interfaces[0] + 'o'] = 10
-                cookie[interfaces[0] + 't'] = 1441324800
+                cookie[self.host + interfaces[0] + 'i'] = 10
+                cookie[self.host + interfaces[0] + 'o'] = 10
+                cookie[self.host + interfaces[0] + 't'] = 1441324800
 
             # Check will be executed exactly ten seconds later
             now = 1441324810
@@ -232,9 +302,9 @@ class TestThroughput(object):
                         check.main(verbose=3)
 
             with Cookie(statefile) as cookie:
-                input = cookie.get(interfaces[0] + 'i')
-                output = cookie.get(interfaces[0] + 'o')
-                time = cookie.get(interfaces[0] + 't')
+                input = cookie.get(self.host + interfaces[0] + 'i')
+                output = cookie.get(self.host + interfaces[0] + 'o')
+                time = cookie.get(self.host + interfaces[0] + 't')
 
                 assert input == xml_ibytes
                 assert output == xml_obytes
@@ -243,7 +313,6 @@ class TestThroughput(object):
         assert check.exitcode == 3
         assert check.state == ServiceState(code=3, text='unknown')
         assert check.summary_str == 'Couldn\'t get a valid value: Found throughput less then old!'
-
 
     @responses.activate
     def test_same_time(self, statefile):
@@ -270,9 +339,9 @@ class TestThroughput(object):
             from nagiosplugin import Cookie
 
             with Cookie(statefile) as cookie:
-                cookie[interfaces[0] + 'i'] = 10
-                cookie[interfaces[0] + 'o'] = 10
-                cookie[interfaces[0] + 't'] = 1441324800
+                cookie[self.host + interfaces[0] + 'i'] = 10
+                cookie[self.host + interfaces[0] + 'o'] = 10
+                cookie[self.host + interfaces[0] + 't'] = 1441324800
 
             # Check will be executed exactly at the same time
             now = 1441324800
@@ -305,8 +374,8 @@ class TestThroughput(object):
 
         check = check_pa.modules.throughput.create_check(self)
         objects = []
-        for ressource in check.resources:
-            objects.append(ressource)
+        for res in check.resources:
+            objects.append(res)
 
         with responses.RequestsMock() as rsps:
 
@@ -320,9 +389,9 @@ class TestThroughput(object):
             from nagiosplugin import Cookie
 
             with Cookie(statefile) as cookie:
-                cookie[interfaces[0] + 'i'] = 10
-                cookie[interfaces[0] + 'o'] = 10
-                cookie[interfaces[0] + 't'] = 1441324800
+                cookie[self.host + interfaces[0] + 'i'] = 10
+                cookie[self.host + interfaces[0] + 'o'] = 10
+                cookie[self.host + interfaces[0] + 't'] = 1441324800
 
             # Check will be executed exactly ten seconds later
             now = 1441324810

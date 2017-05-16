@@ -38,7 +38,7 @@ def parse_args(args):
 
     info = parser.add_argument_group('Info')
     info.add_argument('--version', action='version',
-                      version='%(prog)s 0.3.1')
+                      version='%(prog)s 0.3.2')
 
     subparsers = parser.add_subparsers(dest='command')
     subparsers.required = True

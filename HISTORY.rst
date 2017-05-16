@@ -2,6 +2,10 @@
 
 History
 -------
+0.3.2 (2017-16-05)
+------------------
+* Fixed issue #8: Measuring throughput on multiple identically configured PA's fails
+
 0.3.1 (2017-10-03)
 ------------------
 
@@ -10,7 +14,7 @@ History
 * Removed the the unit of measurement (UOM) for throughput command
 
 0.3 (2017-27-02)
-------------------
+----------------
 
 * Support for Python 3.5 added
 * Minor code improvements

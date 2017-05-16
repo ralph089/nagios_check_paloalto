@@ -23,7 +23,7 @@ test_requirements = [
 ]
 
 setup(name='check_paloalto',
-      version='0.3.1',
+      version='0.3.2',
       description="check_paloalto is a Nagios/Icinga plugin for Palo Alto Next Generation Firewalls. It is written in "
                   "Python and based on the PA REST API.",
       long_description=readme + '\n\n' + history,

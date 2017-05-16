@@ -86,16 +86,16 @@ class Throughput(np.Resource):
         _log.debug('Path to statefile: %r' % get_statefile_path())
         with np.Cookie(get_statefile_path()) as cookie:
 
-            old_inbytes = cookie.get(self.interface_name + 'i', api_inbytes)
-            old_outbytes = cookie.get(self.interface_name + 'o', api_outbytes)
-            old_time = cookie.get(self.interface_name + 't', current_time)
+            old_inbytes = cookie.get(self.host + self.interface_name + 'i', api_inbytes)
+            old_outbytes = cookie.get(self.host + self.interface_name + 'o', api_outbytes)
+            old_time = cookie.get(self.host + self.interface_name + 't', current_time)
 
             if not api_inbytes or not api_outbytes or float(api_inbytes) < 0 or float(api_outbytes) < 0:
                 raise np.CheckError('Couldn\'t get a valid value!')
 
-            cookie[self.interface_name + 'i'] = api_inbytes
-            cookie[self.interface_name + 'o'] = api_outbytes
-            cookie[self.interface_name + 't'] = current_time
+            cookie[self.host + self.interface_name + 'i'] = api_inbytes
+            cookie[self.host + self.interface_name + 'o'] = api_outbytes
+            cookie[self.host + self.interface_name + 't'] = current_time
 
         if float(api_inbytes) < float(old_inbytes) or float(api_outbytes) < float(old_outbytes):
             raise np.CheckError('Couldn\'t get a valid value: Found throughput less then old!')

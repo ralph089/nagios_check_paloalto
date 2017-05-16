@@ -7,11 +7,11 @@ It is written in Python and based on the PA REST API.
 Tested on:
 
 - PA-500 v6.0.1 - v6.0.9
-- PA-3050 v6.0.9 - 7.0.9
+- PA-3050 v6.0.9 - 7.1.9
 
 .. image:: https://travis-ci.org/ralph-hm/nagios_check_paloalto.svg?branch=master
     :target: https://travis-ci.org/ralph-hm/nagios_check_paloalto?branch=master
-    
+
 .. image:: https://coveralls.io/repos/github/ralph-hm/nagios_check_paloalto/badge.svg?branch=master
     :target: https://coveralls.io/github/ralph-hm/nagios_check_paloalto?branch=master
 
